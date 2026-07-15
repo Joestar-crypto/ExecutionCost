@@ -20,16 +20,18 @@
 <meta name="twitter:description" content="Real-time execution cost comparison across 4 major derivatives platforms. Half-spread + taker fees for 239+ tokens.">
 <link rel="icon" type="image/svg+xml" href="executioncost-logo-light (1).svg">
 <link rel="alternate icon" type="image/svg+xml" href="executioncost-logo-dark.svg" media="(prefers-color-scheme: dark)">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1WKBMTV5K3"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1WKBMTV5K3');</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ===== LIGHT THEME (default) — inspired by executioncost-logo-light.svg ===== */
 :root,[data-theme="light"]{
   --bg:#F9F6F0;--surface:#FFFFFF;--elevated:#F2EDE4;--elevated2:#EBE4D7;
   --border:#DDD5C6;--border-light:#CFC5B2;
   --text:#17150F;--text2:#6B6357;--text3:#8A8272;
   --accent:#C77820;--accent-glow:rgba(199,120,32,.15);--accent-bg:rgba(199,120,32,.08);
-  --va:#7C3AED;--hl:#0D9488;--li:#D97706;--tx:#DB2777;
+  --va:#7C3AED;--hl:#0D9488;--li:#F59E0B;--tx:#DB2777;
   --green:#16A34A;--red:#DC2626;
   --r:16px;--rl:20px;
   --topbar-bg:rgba(249,246,240,.88);
@@ -41,8 +43,6 @@
   --shadow-md:0 4px 12px rgba(23,21,15,.08);
   --toggle-bg:#DDD5C6;
 }
-
-/* ===== DARK THEME — inspired by executioncost-logo-dark.svg ===== */
 [data-theme="dark"]{
   --bg:#17150F;--surface:#1F1B14;--elevated:#2A2419;--elevated2:#342D1F;
   --border:#3D3425;--border-light:#504530;
@@ -65,17 +65,15 @@
 body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
 
 /* ===== TOPBAR ===== */
-.topbar{position:sticky;top:0;z-index:100;background:var(--topbar-bg);backdrop-filter:blur(24px) saturate(120%);-webkit-backdrop-filter:blur(24px) saturate(120%);border-bottom:1px solid var(--border);padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between;transition:background .3s,border-color .3s}
-.topbar-left{display:flex;align-items:center;gap:18px}
-.topbar-left .logo-svg{height:44px;width:auto}
+.topbar{position:sticky;top:0;z-index:100;background:var(--topbar-bg);backdrop-filter:blur(24px) saturate(120%);-webkit-backdrop-filter:blur(24px) saturate(120%);border-bottom:1px solid var(--border);padding:0 40px;height:84px;display:flex;align-items:center;justify-content:space-between;transition:background .3s,border-color .3s}
+.topbar-left{display:flex;align-items:center;gap:20px}
+.topbar-left .logo-svg{height:60px;width:auto}
 .topbar-right{display:flex;align-items:center;gap:16px}
 
-/* ===== PLATFORM ICON DOTS ===== */
-.pdot{width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;color:#fff;letter-spacing:0}
-.pdot.va{background:var(--va)}.pdot.hl{background:var(--hl)}.pdot.li{background:var(--li)}.pdot.tx{background:var(--tx)}
+/* ===== PLATFORM LOGOS ===== */
+.plogo{height:14px;width:auto;object-fit:contain;flex-shrink:0;display:inline-block;vertical-align:middle;border-radius:2px}
 
 /* ===== APPLE-STYLE TOGGLE ===== */
-.toggle-wrap{display:flex;align-items:center;gap:0}
 .toggle-btn{position:relative;width:48px;height:26px;border-radius:26px;background:var(--toggle-bg);border:1px solid var(--border);cursor:pointer;transition:background .35s,border-color .35s;display:flex;align-items:center;padding:2px;outline:none;flex-shrink:0}
 .toggle-btn:hover{border-color:var(--accent)}
 .toggle-btn .knob{position:absolute;width:20px;height:20px;border-radius:50%;background:var(--accent);left:2px;transition:transform .35s cubic-bezier(.4,0,.2,1),background .35s;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.2)}
@@ -91,19 +89,21 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 
 /* ===== HERO ===== */
 .hero{grid-column:1/-1;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:8px}
-.hero-text h1{font-size:4rem;font-weight:800;letter-spacing:-.04em;line-height:1.1;margin-bottom:12px;font-family:'DM Sans',system-ui,sans-serif}
+.hero-text h1{font-size:5.5rem;font-weight:800;letter-spacing:-.04em;line-height:1.05;margin-bottom:12px;font-family:'DM Sans',system-ui,sans-serif}
 .hero-text h1 .grad{background:linear-gradient(135deg,var(--accent) 0%,#E5953F 50%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-kpis{display:flex;gap:16px}
-.hero-kpi{text-align:center;padding:16px 22px;background:var(--elevated);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-sm);transition:border-color .2s,background .3s}
+.hero-kpi{text-align:center;padding:18px 24px;background:var(--elevated);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-sm);transition:border-color .2s,background .3s}
 .hero-kpi:hover{border-color:var(--accent)}
-.hero-kpi .kpi-top{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:6px}
+.hero-kpi .kpi-top{display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.plogo-hero{height:22px!important;border-radius:3px!important}
 .hero-kpi .num{font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:600;letter-spacing:-.03em;line-height:1}
 .hero-kpi .num.va{color:var(--va)}.hero-kpi .num.hl{color:var(--hl)}.hero-kpi .num.li{color:var(--li)}.hero-kpi .num.tx{color:var(--tx)}
-.hero-kpi .lbl{font-size:.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-weight:500}
+.hero-kpi .lbl{font-size:.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-weight:500;margin-top:2px}
 
 /* ===== PLATFORM BADGES ===== */
 .platform-badges{display:flex;gap:6px}
-.pbadge{padding:3px 10px;border-radius:100px;font-size:.7rem;font-weight:600;transition:background .3s;display:flex;align-items:center;gap:5px}
+.pbadge{padding:4px 12px;border-radius:100px;font-size:.7rem;font-weight:600;transition:background .3s;display:flex;align-items:center;gap:6px}
+.pbadge .plogo{height:12px}
 .pbadge.va{background:rgba(124,58,237,.12);color:var(--va)}.pbadge.hl{background:rgba(20,184,166,.12);color:var(--hl)}
 .pbadge.li{background:rgba(245,158,11,.12);color:var(--li)}.pbadge.tx{background:rgba(236,72,153,.12);color:var(--tx)}
 
@@ -131,6 +131,7 @@ table{width:100%;border-collapse:collapse;font-size:.78rem}
 thead th{padding:12px 14px;text-align:left;font-weight:600;font-size:.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;white-space:nowrap;background:var(--elevated);transition:background .3s,color .3s,border-color .3s}
 thead th:hover{color:var(--text2)}
 thead th .th-inner{display:flex;align-items:center;gap:6px}
+
 tbody td{padding:10px 14px;border-bottom:1px solid var(--border);transition:border-color .3s}
 tbody tr{transition:background .12s}tbody tr:hover{background:var(--hover-row)}
 .token-cell{font-weight:600;color:var(--text);letter-spacing:-.01em}
@@ -140,7 +141,8 @@ tbody tr{transition:background .12s}tbody tr:hover{background:var(--hover-row)}
 .c-li{color:var(--li);font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:500}
 .c-tx{color:var(--tx);font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:500}
 .dg{color:var(--green)}.dr{color:var(--red)}
-.btag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:100px;font-size:.65rem;font-weight:600;letter-spacing:.02em}
+.btag{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:100px;font-size:.65rem;font-weight:600;letter-spacing:.02em}
+.btag .plogo{height:11px}
 .btag.va{background:rgba(124,58,237,.15);color:var(--va)}.btag.hl{background:rgba(20,184,166,.15);color:var(--hl)}
 .btag.li{background:rgba(245,158,11,.15);color:var(--li)}.btag.tx{background:rgba(236,72,153,.15);color:var(--tx)}
 
@@ -149,7 +151,7 @@ footer{text-align:center;padding:24px 40px;color:var(--text3);font-size:.75rem;b
 footer b{color:var(--text2);font-weight:500}
 
 /* ===== RESPONSIVE ===== */
-@media(max-width:1000px){.main-grid{grid-template-columns:1fr;padding:20px 16px}.hero{flex-direction:column;align-items:flex-start}.topbar{padding:0 16px}.hero-text h1{font-size:2.5rem}}
+@media(max-width:1000px){.main-grid{grid-template-columns:1fr;padding:20px 16px}.hero{flex-direction:column;align-items:flex-start}.topbar{padding:0 16px}.hero-text h1{font-size:3rem}}
 </style>
 </head>
 <body>
@@ -168,10 +170,10 @@ footer b{color:var(--text2);font-weight:500}
   <text x="118" y="70" dominant-baseline="middle" text-anchor="start" font-family="TeX Gyre Adventor,DM Sans,system-ui,sans-serif" font-weight="700" font-size="62" fill="#F1EDE4">executioncost<tspan font-family="Liberation Mono,JetBrains Mono,monospace" font-weight="400" font-size="38" fill="#948C7C">.xyz</tspan></text>
 </svg>
 <div class="platform-badges">
-<span class="pbadge va"><span class="pdot va">V</span>Variational</span>
-<span class="pbadge hl"><span class="pdot hl">H</span>Hyperliquid</span>
-<span class="pbadge li"><span class="pdot li">L</span>Lighter</span>
-<span class="pbadge tx"><span class="pdot tx">T</span>Trade.xyz</span>
+<span class="pbadge va"><img class="plogo" src="Variational.jpg" alt="V">Variational</span>
+<span class="pbadge hl"><img class="plogo" src="Hyperliquid.jpg" alt="H">Hyperliquid</span>
+<span class="pbadge li"><img class="plogo" src="Lighter.jpg" alt="L">Lighter</span>
+<span class="pbadge tx"><img class="plogo" src="Tradexyz.jpg" alt="T">Trade.xyz</span>
 </div>
 </div>
 <div class="topbar-right">
@@ -193,10 +195,10 @@ footer b{color:var(--text2);font-weight:500}
 <h1>Where is <span class="grad">execution</span><br>cheapest?</h1>
 </div>
 <div class="hero-kpis">
-<div class="hero-kpi"><div class="kpi-top"><span class="pdot va">V</span></div><div class="num va" id="heroV">—</div><div class="lbl">Variational</div></div>
-<div class="hero-kpi"><div class="kpi-top"><span class="pdot hl">H</span></div><div class="num hl" id="heroHL">—</div><div class="lbl">Hyperliquid</div></div>
-<div class="hero-kpi"><div class="kpi-top"><span class="pdot li">L</span></div><div class="num li" id="heroL">—</div><div class="lbl">Lighter</div></div>
-<div class="hero-kpi"><div class="kpi-top"><span class="pdot tx">T</span></div><div class="num tx" id="heroTX">—</div><div class="lbl">Trade.xyz</div></div>
+<div class="hero-kpi"><div class="kpi-top"><img class="plogo plogo-hero" src="Variational.jpg" alt="V"></div><div class="num va" id="heroV">—</div><div class="lbl">Variational</div></div>
+<div class="hero-kpi"><div class="kpi-top"><img class="plogo plogo-hero" src="Hyperliquid.jpg" alt="H"></div><div class="num hl" id="heroHL">—</div><div class="lbl">Hyperliquid</div></div>
+<div class="hero-kpi"><div class="kpi-top"><img class="plogo plogo-hero" src="Lighter.jpg" alt="L"></div><div class="num li" id="heroL">—</div><div class="lbl">Lighter</div></div>
+<div class="hero-kpi"><div class="kpi-top"><img class="plogo plogo-hero" src="Tradexyz.jpg" alt="T"></div><div class="num tx" id="heroTX">—</div><div class="lbl">Trade.xyz</div></div>
 </div></div>
 
 <!-- Scatter -->
@@ -256,9 +258,9 @@ footer b{color:var(--text2);font-weight:500}
 <div class="table-wrap"><table><thead><tr>
 <th data-sort="ticker">Token</th>
 <th data-sort="platforms">On</th>
-<th data-sort="vExec"><span class="th-inner"><span class="pdot va">V</span>Variational</span></th>
-<th data-sort="hlExec"><span class="th-inner"><span class="pdot hl">H</span>Hyperliquid</span></th>
-<th data-sort="lExec"><span class="th-inner"><span class="pdot li">L</span>Lighter</span></th>
+<th data-sort="vExec"><span class="th-inner"><img class="plogo" src="Variational.jpg" alt="">Variational</span></th>
+<th data-sort="hlExec"><span class="th-inner"><img class="plogo" src="Hyperliquid.jpg" alt="">Hyperliquid</span></th>
+<th data-sort="lExec"><span class="th-inner"><img class="plogo" src="Lighter.jpg" alt="">Lighter</span></th>
 <th data-sort="best">Best</th>
 </tr></thead>
 <tbody id="tableBody"></tbody></table></div>
@@ -391,24 +393,22 @@ function getData(){
 function renderTable(){
   var rows='';
   getData().forEach(function(r){
-    var b=r.best,bt='btag va',bdot='<span class=\"pdot va\">V</span>';
-    if(b==='Hyperliquid'){bt='btag hl';bdot='<span class=\"pdot hl\">H</span>'}
-    if(b==='Lighter'){bt='btag li';bdot='<span class=\"pdot li\">L</span>'}
-    if(b==='Trade.xyz'){bt='btag tx';bdot='<span class=\"pdot tx\">T</span>'}
+    var b=r.best,bt='btag va',bimg='<img class="plogo" src="Variational.jpg" alt="V">';
+    if(b==='Hyperliquid'){bt='btag hl';bimg='<img class="plogo" src="Hyperliquid.jpg" alt="H">'}
+    if(b==='Lighter'){bt='btag li';bimg='<img class="plogo" src="Lighter.jpg" alt="L">'}
+    if(b==='Trade.xyz'){bt='btag tx';bimg='<img class="plogo" src="Tradexyz.jpg" alt="T">'}
     var vD=r.on_v?r.v_exec.toFixed(4)+'%':'—';
     var hlD=r.on_hl?(r.has_hl_book?r.hl_exec.toFixed(4)+'%':'~'+r.hl_exec.toFixed(4)+'%'):'—';
     var lD=r.on_l?r.l_exec.toFixed(4)+'%':'—';
     var cat=r.on_hl?'₿':'🏛';if(r.on_tradexyz)cat='💱';
     var pf=r.platforms;if(r.on_tradexyz)pf+='+TX';
-    rows+='<tr><td class=\"token-cell\">'+r.ticker+'<span class=\"cat\">'+cat+'</span></td><td>'+pf+'</td><td class=\"c-va\">'+vD+'</td><td class=\"c-hl\">'+hlD+'</td><td class=\"c-li\">'+lD+'</td><td><span class=\"'+bt+'\">'+bdot+b+'</span></td></tr>';
+    rows+='<tr><td class=\"token-cell\">'+r.ticker+'<span class=\"cat\">'+cat+'</span></td><td>'+pf+'</td><td class=\"c-va\">'+vD+'</td><td class=\"c-hl\">'+hlD+'</td><td class=\"c-li\">'+lD+'</td><td><span class=\"'+bt+'\">'+bimg+b+'</span></td></tr>';
   });
   document.getElementById('tableBody').innerHTML=rows;
 }
 
 function renderCharts(){
   var c=chartColors();
-
-  // SCATTER
   var ptsV=[],ptsH=[],ptsL=[],ptsTX=[];
   var fd=allData;
   if(scatterCategory==='crypto')fd=allData.filter(function(r){return r.on_hl && !r.on_tradexyz});
