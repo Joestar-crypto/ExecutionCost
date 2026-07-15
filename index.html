@@ -273,6 +273,7 @@ footer b{color:var(--text2);font-weight:500}
 <th data-sort="vExec"><span class="th-inner"><img class="plogo" src="Variational.jpg" alt="">Variational</span></th>
 <th data-sort="hlExec"><span class="th-inner"><img class="plogo" src="Hyperliquid.jpg" alt="">Hyperliquid</span></th>
 <th data-sort="lExec"><span class="th-inner"><img class="plogo" src="Lighter.jpg" alt="">Lighter</span></th>
+<th data-sort="txExec"><span class="th-inner"><img class="plogo" src="Tradexyz.jpg" alt="">Trade.xyz</span></th>
 <th data-sort="best">Best</th>
 </tr></thead>
 <tbody id="tableBody"></tbody></table></div>
@@ -403,6 +404,7 @@ function getData(){
     else if(sortField==='vExec'){va=a.v_exec||999;vb=b.v_exec||999}
     else if(sortField==='hlExec'){va=a.hl_exec||999;vb=b.hl_exec||999}
     else if(sortField==='lExec'){va=a.l_exec||999;vb=b.l_exec||999}
+    else if(sortField==='txExec'){va=a.tx_exec||999;vb=b.tx_exec||999}
     else if(sortField==='best'){va=a.best;vb=b.best}
     else{va=a.ticker;vb=b.ticker}
     if(typeof va==='string')return sortAsc?va.localeCompare(vb):vb.localeCompare(va);
@@ -421,9 +423,10 @@ function renderTable(){
     var vD=r.on_v?r.v_exec.toFixed(4)+'%':'—';
     var hlD=r.on_hl?(r.has_hl_book?r.hl_exec.toFixed(4)+'%':'~'+r.hl_exec.toFixed(4)+'%'):'—';
     var lD=r.on_l?r.l_exec.toFixed(4)+'%':'—';
+    var txD=r.on_tradexyz?(r.has_tx_book?r.tx_exec.toFixed(4)+'%':'~'+r.tx_exec.toFixed(4)+'%'):'—';
     var cat=r.on_hl?'₿':'🏛';if(r.on_tradexyz)cat='💱';
     var pf=r.platforms;if(r.on_tradexyz)pf+='+TX';
-    rows+='<tr><td class=\"token-cell\">'+r.ticker+'<span class=\"cat\">'+cat+'</span></td><td>'+pf+'</td><td class=\"c-va\">'+vD+'</td><td class=\"c-hl\">'+hlD+'</td><td class=\"c-li\">'+lD+'</td><td><span class=\"'+bt+'\">'+bimg+b+'</span></td></tr>';
+    rows+='<tr><td class="token-cell">'+r.ticker+'<span class="cat">'+cat+'</span></td><td>'+pf+'</td><td class="c-va">'+vD+'</td><td class="c-hl">'+hlD+'</td><td class="c-li">'+lD+'</td><td class="c-tx">'+txD+'</td><td><span class="'+bt+'">'+bimg+b+'</span></td></tr>';
   });
   document.getElementById('tableBody').innerHTML=rows;
 }
