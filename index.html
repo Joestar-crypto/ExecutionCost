@@ -48,7 +48,7 @@
   --border:#3D3425;--border-light:#504530;
   --text:#F1EDE4;--text2:#948C7C;--text3:#6B6357;
   --accent:#D98936;--accent-glow:rgba(217,137,54,.2);--accent-bg:rgba(217,137,54,.12);
-  --va:#8B5CF6;--hl:#14B8A6;--li:#F59E0B;--tx:#EC4899;
+  --va:#A78BFA;--hl:#2DD4A7;--li:#F0945C;--tx:#F5C842;
   --green:#51cf66;--red:#ff6b6b;
   --r:16px;--rl:20px;
   --topbar-bg:rgba(23,21,15,.88);
@@ -104,8 +104,8 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 .platform-badges{display:flex;gap:6px}
 .pbadge{padding:4px 12px;border-radius:100px;font-size:.7rem;font-weight:600;transition:background .3s;display:flex;align-items:center;gap:6px}
 .pbadge .plogo{height:12px}
-.pbadge.va{background:rgba(124,58,237,.12);color:var(--va)}.pbadge.hl{background:rgba(20,184,166,.12);color:var(--hl)}
-.pbadge.li{background:rgba(245,158,11,.12);color:var(--li)}.pbadge.tx{background:rgba(236,72,153,.12);color:var(--tx)}
+.pbadge.va{background:rgba(91,79,207,.15);color:var(--va)}.pbadge.hl{background:rgba(13,158,140,.15);color:var(--hl)}
+.pbadge.li{background:rgba(224,93,42,.13);color:var(--li)}.pbadge.tx{background:rgba(200,138,4,.14);color:var(--tx)}
 
 /* ===== CARDS ===== */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:28px;overflow:hidden;transition:border-color .2s,background .3s,box-shadow .2s;box-shadow:var(--shadow-sm)}
@@ -146,8 +146,8 @@ tbody tr{transition:background .12s}tbody tr:hover{background:var(--hover-row)}
 .dg{color:var(--green)}.dr{color:var(--red)}
 .btag{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:100px;font-size:.65rem;font-weight:600;letter-spacing:.02em}
 .btag .plogo{height:11px}
-.btag.va{background:rgba(124,58,237,.15);color:var(--va)}.btag.hl{background:rgba(20,184,166,.15);color:var(--hl)}
-.btag.li{background:rgba(245,158,11,.15);color:var(--li)}.btag.tx{background:rgba(236,72,153,.15);color:var(--tx)}
+.btag.va{background:rgba(91,79,207,.16);color:var(--va)}.btag.hl{background:rgba(13,158,140,.16);color:var(--hl)}
+.btag.li{background:rgba(224,93,42,.14);color:var(--li)}.btag.tx{background:rgba(200,138,4,.15);color:var(--tx)}
 
 /* ===== FOOTER ===== */
 footer{text-align:center;padding:24px 40px;color:var(--text3);font-size:.75rem;border-top:1px solid var(--border);transition:border-color .3s,color .3s}
@@ -327,12 +327,12 @@ function chartColors(){
     tick:isDark?'#6B6357':'#8A8272',
     grid:isDark?'rgba(61,52,37,.5)':'rgba(207,197,178,.5)',
     watermark:isDark?'#F1EDE4':'#6B6357',
-    va:'#8B5CF6',vaAlpha:'rgba(139,92,246,.3)',vaBar:'rgba(139,92,246,.6)',
-    hl:'#14B8A6',hlAlpha:'rgba(20,184,166,.3)',hlBar:'rgba(20,184,166,.6)',
-    li:'#F59E0B',liAlpha:'rgba(245,158,11,.3)',liBar:'rgba(245,158,11,.6)',
-    tx:'#EC4899',txAlpha:'rgba(236,72,153,.3)',txBar:'rgba(236,72,153,.6)',
-    pie:['rgba(139,92,246,.75)','rgba(20,184,166,.75)','rgba(245,158,11,.75)','rgba(236,72,153,.75)'],
-    pieBorder:['#8B5CF6','#14B8A6','#F59E0B','#EC4899']
+    va:'#A78BFA',vaBorder:'rgba(167,139,250,.45)',vaAlpha:'rgba(167,139,250,.75)',vaBar:'rgba(167,139,250,.8)',vaStroke:'#7C6FF7',
+    hl:'#2DD4A7',hlBorder:'rgba(45,212,167,.45)',hlAlpha:'rgba(45,212,167,.75)',hlBar:'rgba(45,212,167,.8)',hlStroke:'#1DB892',
+    li:'#F0945C',liBorder:'rgba(240,148,92,.45)',liAlpha:'rgba(240,148,92,.75)',liBar:'rgba(240,148,92,.8)',liStroke:'#E07030',
+    tx:'#F5C842',txBorder:'rgba(245,200,66,.45)',txAlpha:'rgba(245,200,66,.75)',txBar:'rgba(245,200,66,.8)',txStroke:'#D4A820',
+    pie:['rgba(167,139,250,.85)','rgba(45,212,167,.85)','rgba(240,148,92,.85)','rgba(245,200,66,.85)'],
+    pieBorder:['#A78BFA','#2DD4A7','#F0945C','#F5C842']
   };
 }
 
@@ -453,10 +453,10 @@ function renderCharts(){
   });
   if(cV>0)aV=sV/cV;if(cH>0)aH=sH/cH;if(cL>0)aL=sL/cL;if(cT>0)aT=sT/cT;
   var ds=[
-    {label:'Variational ('+ptsV.length+')',data:ptsV,backgroundColor:c.vaAlpha,borderColor:c.va,pointRadius:3,pointHoverRadius:6},
-    {label:'Hyperliquid ('+ptsH.length+')',data:ptsH,backgroundColor:c.hlAlpha,borderColor:c.hl,pointRadius:3,pointHoverRadius:6},
-    {label:'Lighter ('+ptsL.length+')',data:ptsL,backgroundColor:c.liAlpha,borderColor:c.li,pointRadius:3,pointHoverRadius:6},
-    {label:'Trade.xyz ('+ptsTX.length+')',data:ptsTX,backgroundColor:c.txAlpha,borderColor:c.tx,pointRadius:3,pointHoverRadius:6}
+    {label:'Variational ('+ptsV.length+')',data:ptsV,backgroundColor:c.vaAlpha,borderColor:c.vaStroke,pointBorderColor:c.vaStroke,pointBorderWidth:1,pointRadius:4,pointHoverRadius:9,pointHoverBorderWidth:3,pointHoverBorderColor:c.va},
+    {label:'Hyperliquid ('+ptsH.length+')',data:ptsH,backgroundColor:c.hlAlpha,borderColor:c.hlStroke,pointBorderColor:c.hlStroke,pointBorderWidth:1,pointRadius:4,pointHoverRadius:9,pointHoverBorderWidth:3,pointHoverBorderColor:c.hl},
+    {label:'Lighter ('+ptsL.length+')',data:ptsL,backgroundColor:c.liAlpha,borderColor:c.liStroke,pointBorderColor:c.liStroke,pointBorderWidth:1,pointRadius:4,pointHoverRadius:9,pointHoverBorderWidth:3,pointHoverBorderColor:c.li},
+    {label:'Trade.xyz ('+ptsTX.length+')',data:ptsTX,backgroundColor:c.txAlpha,borderColor:c.txStroke,pointBorderColor:c.txStroke,pointBorderWidth:1,pointRadius:4,pointHoverRadius:9,pointHoverBorderWidth:3,pointHoverBorderColor:c.tx}
   ];
   if(aV>0)ds.push({label:'V avg '+aV.toFixed(3)+'%',data:[{x:aV,y:0},{x:aV,y:1}],showLine:true,borderColor:c.va,borderWidth:2,borderDash:[5,3],pointRadius:0,order:1,hidden:!showAvgs,showInLegend:false});
   if(aH>0)ds.push({label:'HL avg '+aH.toFixed(3)+'%',data:[{x:aH,y:0},{x:aH,y:1}],showLine:true,borderColor:c.hl,borderWidth:2,borderDash:[5,3],pointRadius:0,order:1,hidden:!showAvgs,showInLegend:false});
