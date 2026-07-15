@@ -1,0 +1,5 @@
+<svg viewBox="0 0 800 140" xmlns="http://www.w3.org/2000/svg">
+  <rect x="24" y="80" width="32" height="17" rx="8.5" fill="#6B6357"/>
+  <rect x="60" y="44" width="32" height="17" rx="8.5" fill="#C77820"/>
+  <text x="118" y="70" dominant-baseline="middle" text-anchor="start" font-family="TeX Gyre Adventor" font-weight="700" font-size="62" fill="#17150F">executioncost<tspan font-family="Liberation Mono" font-weight="400" font-size="38" fill="#8A8272">.xyz</tspan></text>
+</svg>

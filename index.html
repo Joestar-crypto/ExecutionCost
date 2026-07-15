@@ -1,96 +1,205 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ExecutionCost.XYZ — Variational vs Hyperliquid vs Lighter vs Trade.xyz</title>
+<title>ExecutionCost.XYZ — Compare Execution Costs: Variational vs Hyperliquid vs Lighter vs Trade.xyz</title>
+<meta name="description" content="Real-time comparison of crypto derivatives execution costs across Variational, Hyperliquid, Lighter, and Trade.xyz. Half-spread + taker fees for 239+ tokens. Find where execution is cheapest.">
+<meta name="keywords" content="execution cost, crypto trading, derivatives, Variational, Hyperliquid, Lighter, Trade.xyz, spread comparison, taker fees, DeFi, perpetuals">
+<meta name="author" content="ExecutionCost.XYZ">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://executioncost.xyz/">
+<meta property="og:title" content="ExecutionCost.XYZ — Where Is Execution Cheapest?">
+<meta property="og:description" content="Real-time half-spread + taker fee comparison across Variational, Hyperliquid, Lighter & Trade.xyz. 239+ tokens tracked.">
+<meta property="og:url" content="https://executioncost.xyz/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ExecutionCost.XYZ">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ExecutionCost.XYZ — Where Is Execution Cheapest?">
+<meta name="twitter:description" content="Real-time execution cost comparison across 4 major derivatives platforms. Half-spread + taker fees for 239+ tokens.">
+<link rel="icon" type="image/svg+xml" href="executioncost-logo-light (1).svg">
+<link rel="alternate icon" type="image/svg+xml" href="executioncost-logo-dark.svg" media="(prefers-color-scheme: dark)">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#080c14;--surface:#0f1520;--elevated:#151d2b;--border:#1e2a3a;--border-light:#263348;--text:#e8ecf2;--text2:#8896aa;--text3:#556278;--va:#7C3AED;--hl:#14B8A6;--li:#F59E0B;--tx:#EC4899;--green:#51cf66;--red:#ff6b6b;--r:16px;--rl:20px}
+/* ===== LIGHT THEME (default) — inspired by executioncost-logo-light.svg ===== */
+:root,[data-theme="light"]{
+  --bg:#F9F6F0;--surface:#FFFFFF;--elevated:#F2EDE4;--elevated2:#EBE4D7;
+  --border:#DDD5C6;--border-light:#CFC5B2;
+  --text:#17150F;--text2:#6B6357;--text3:#8A8272;
+  --accent:#C77820;--accent-glow:rgba(199,120,32,.15);--accent-bg:rgba(199,120,32,.08);
+  --va:#7C3AED;--hl:#0D9488;--li:#D97706;--tx:#DB2777;
+  --green:#16A34A;--red:#DC2626;
+  --r:16px;--rl:20px;
+  --topbar-bg:rgba(249,246,240,.88);
+  --hover-row:rgba(0,0,0,.02);
+  --watermark-color:#6B6357;
+  --grid-color:rgba(207,197,178,.5);
+  --chart-legend:var(--text2);--chart-tick:var(--text3);
+  --shadow-sm:0 1px 3px rgba(23,21,15,.06);
+  --shadow-md:0 4px 12px rgba(23,21,15,.08);
+  --toggle-bg:#DDD5C6;
+}
+
+/* ===== DARK THEME — inspired by executioncost-logo-dark.svg ===== */
+[data-theme="dark"]{
+  --bg:#17150F;--surface:#1F1B14;--elevated:#2A2419;--elevated2:#342D1F;
+  --border:#3D3425;--border-light:#504530;
+  --text:#F1EDE4;--text2:#948C7C;--text3:#6B6357;
+  --accent:#D98936;--accent-glow:rgba(217,137,54,.2);--accent-bg:rgba(217,137,54,.12);
+  --va:#8B5CF6;--hl:#14B8A6;--li:#F59E0B;--tx:#EC4899;
+  --green:#51cf66;--red:#ff6b6b;
+  --r:16px;--rl:20px;
+  --topbar-bg:rgba(23,21,15,.88);
+  --hover-row:rgba(255,255,255,.015);
+  --watermark-color:#F1EDE4;
+  --grid-color:rgba(61,52,37,.5);
+  --chart-legend:#948C7C;--chart-tick:#6B6357;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.2);
+  --shadow-md:0 4px 12px rgba(0,0,0,.3);
+  --toggle-bg:#3D3425;
+}
+
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
-.topbar{position:sticky;top:0;z-index:100;background:rgba(8,12,20,.88);backdrop-filter:blur(24px)saturate(120%);border-bottom:1px solid var(--border);padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between}
-.topbar-left{display:flex;align-items:center;gap:14px}
-.topbar-left .brand{font-weight:700;font-size:1.1rem;letter-spacing:-.02em}
-.topbar-right{display:flex;align-items:center;gap:12px;font-size:.76rem;color:var(--text2)}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(81,207,102,.5);animation:livePulse 2s infinite}
-@keyframes livePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.85)}}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+
+/* ===== TOPBAR ===== */
+.topbar{position:sticky;top:0;z-index:100;background:var(--topbar-bg);backdrop-filter:blur(24px) saturate(120%);-webkit-backdrop-filter:blur(24px) saturate(120%);border-bottom:1px solid var(--border);padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between;transition:background .3s,border-color .3s}
+.topbar-left{display:flex;align-items:center;gap:18px}
+.topbar-left .logo-svg{height:44px;width:auto}
+.topbar-right{display:flex;align-items:center;gap:16px}
+
+/* ===== PLATFORM ICON DOTS ===== */
+.pdot{width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;color:#fff;letter-spacing:0}
+.pdot.va{background:var(--va)}.pdot.hl{background:var(--hl)}.pdot.li{background:var(--li)}.pdot.tx{background:var(--tx)}
+
+/* ===== APPLE-STYLE TOGGLE ===== */
+.toggle-wrap{display:flex;align-items:center;gap:0}
+.toggle-btn{position:relative;width:48px;height:26px;border-radius:26px;background:var(--toggle-bg);border:1px solid var(--border);cursor:pointer;transition:background .35s,border-color .35s;display:flex;align-items:center;padding:2px;outline:none;flex-shrink:0}
+.toggle-btn:hover{border-color:var(--accent)}
+.toggle-btn .knob{position:absolute;width:20px;height:20px;border-radius:50%;background:var(--accent);left:2px;transition:transform .35s cubic-bezier(.4,0,.2,1),background .35s;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle-btn .knob svg{width:12px;height:12px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.toggle-btn.dark .knob{transform:translateX(22px)}
+.toggle-btn.dark{background:var(--accent);border-color:var(--accent)}
+.toggle-btn.dark .knob{background:#fff}
+.toggle-btn.dark .knob svg{stroke:var(--accent)}
+
+/* ===== MAIN GRID ===== */
 .main-grid{max-width:1480px;margin:0 auto;padding:32px 40px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .main-grid .full{grid-column:1/-1}
+
+/* ===== HERO ===== */
 .hero{grid-column:1/-1;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:8px}
-.hero-text h1{font-size:3.2rem;font-weight:800;letter-spacing:-.04em;line-height:1.1;margin-bottom:8px;font-family:'DM Sans',system-ui,sans-serif}
-.hero-text h1 .grad{background:linear-gradient(135deg,#c084fc 0%,var(--va) 40%,var(--tx) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-text p{font-size:.95rem;color:var(--text2);max-width:540px}
+.hero-text h1{font-size:4rem;font-weight:800;letter-spacing:-.04em;line-height:1.1;margin-bottom:12px;font-family:'DM Sans',system-ui,sans-serif}
+.hero-text h1 .grad{background:linear-gradient(135deg,var(--accent) 0%,#E5953F 50%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-kpis{display:flex;gap:16px}
-.hero-kpi{text-align:center;padding:12px 18px;background:var(--elevated);border:1px solid var(--border);border-radius:var(--r)}
+.hero-kpi{text-align:center;padding:16px 22px;background:var(--elevated);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-sm);transition:border-color .2s,background .3s}
+.hero-kpi:hover{border-color:var(--accent)}
+.hero-kpi .kpi-top{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:6px}
 .hero-kpi .num{font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:600;letter-spacing:-.03em;line-height:1}
 .hero-kpi .num.va{color:var(--va)}.hero-kpi .num.hl{color:var(--hl)}.hero-kpi .num.li{color:var(--li)}.hero-kpi .num.tx{color:var(--tx)}
-.hero-kpi .lbl{font-size:.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-top:4px;font-weight:500}
+.hero-kpi .lbl{font-size:.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-weight:500}
+
+/* ===== PLATFORM BADGES ===== */
 .platform-badges{display:flex;gap:6px}
-.pbadge{padding:3px 10px;border-radius:100px;font-size:.7rem;font-weight:600}
-.pbadge.va{background:rgba(124,58,237,.12);color:var(--va)}.pbadge.hl{background:rgba(20,184,166,.12);color:var(--hl)}.pbadge.li{background:rgba(245,158,11,.12);color:var(--li)}.pbadge.tx{background:rgba(236,72,153,.12);color:var(--tx)}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:28px;overflow:hidden;transition:border-color .2s}
-.card:hover{border-color:var(--border-light)}
+.pbadge{padding:3px 10px;border-radius:100px;font-size:.7rem;font-weight:600;transition:background .3s;display:flex;align-items:center;gap:5px}
+.pbadge.va{background:rgba(124,58,237,.12);color:var(--va)}.pbadge.hl{background:rgba(20,184,166,.12);color:var(--hl)}
+.pbadge.li{background:rgba(245,158,11,.12);color:var(--li)}.pbadge.tx{background:rgba(236,72,153,.12);color:var(--tx)}
+
+/* ===== CARDS ===== */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:28px;overflow:hidden;transition:border-color .2s,background .3s,box-shadow .2s;box-shadow:var(--shadow-sm)}
+.card:hover{border-color:var(--border-light);box-shadow:var(--shadow-md)}
 .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
 .card-header h2{font-size:.95rem;font-weight:600;letter-spacing:-.01em}
 .card-header .pills{display:flex;gap:5px}
 .pill{padding:6px 14px;border-radius:100px;font-size:.72rem;font-weight:500;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text2);transition:all .15s;font-family:inherit}
 .pill:hover{border-color:var(--border-light);color:var(--text)}
-.pill.active{background:rgba(124,58,237,.15);border-color:var(--va);color:var(--va)}
+.pill.active{background:var(--accent-glow);border-color:var(--accent);color:var(--accent)}
 canvas{max-height:280px}
+
+/* ===== TABLE ===== */
 .table-toolbar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
-.table-toolbar input{flex:1;min-width:180px;max-width:280px;padding:9px 14px;border-radius:100px;border:1px solid var(--border);background:var(--elevated);color:var(--text);font-size:.8rem;font-family:inherit;outline:none;transition:border-color .15s}
-.table-toolbar input:focus{border-color:var(--va)}.table-toolbar input::placeholder{color:var(--text3)}
-.table-toolbar .sep{width:1px;height:22px;background:var(--border);margin:0 4px}
+.table-toolbar input{flex:1;min-width:180px;max-width:280px;padding:9px 14px;border-radius:100px;border:1px solid var(--border);background:var(--elevated);color:var(--text);font-size:.8rem;font-family:inherit;outline:none;transition:border-color .15s,background .3s,color .3s}
+.table-toolbar input:focus{border-color:var(--accent)}.table-toolbar input::placeholder{color:var(--text3)}
+.table-toolbar .sep{width:1px;height:22px;background:var(--border);margin:0 4px;transition:background .3s}
 .chip{padding:6px 12px;border-radius:100px;font-size:.72rem;font-weight:500;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text2);transition:all .15s;font-family:inherit;white-space:nowrap}
 .chip:hover{border-color:var(--border-light);color:var(--text)}
-.chip.active{background:rgba(124,58,237,.15);border-color:var(--va);color:var(--va)}
+.chip.active{background:var(--accent-bg);border-color:var(--accent);color:var(--accent)}
 .table-wrap{overflow-x:auto;border-radius:var(--r)}
 table{width:100%;border-collapse:collapse;font-size:.78rem}
-thead th{padding:12px 14px;text-align:left;font-weight:600;font-size:.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;white-space:nowrap;background:var(--elevated)}
+thead th{padding:12px 14px;text-align:left;font-weight:600;font-size:.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;white-space:nowrap;background:var(--elevated);transition:background .3s,color .3s,border-color .3s}
 thead th:hover{color:var(--text2)}
-tbody td{padding:10px 14px;border-bottom:1px solid rgba(30,42,58,.4)}
-tbody tr{transition:background .12s}tbody tr:hover{background:rgba(255,255,255,.015)}
-.token-cell{font-weight:600;color:#fff;letter-spacing:-.01em}
+thead th .th-inner{display:flex;align-items:center;gap:6px}
+tbody td{padding:10px 14px;border-bottom:1px solid var(--border);transition:border-color .3s}
+tbody tr{transition:background .12s}tbody tr:hover{background:var(--hover-row)}
+.token-cell{font-weight:600;color:var(--text);letter-spacing:-.01em}
 .token-cell .cat{font-size:.58rem;margin-left:3px;opacity:.5}
 .c-va{color:var(--va);font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:500}
 .c-hl{color:var(--hl);font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:500}
 .c-li{color:var(--li);font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:500}
 .c-tx{color:var(--tx);font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:500}
 .dg{color:var(--green)}.dr{color:var(--red)}
-.btag{display:inline-block;padding:3px 10px;border-radius:100px;font-size:.65rem;font-weight:600;letter-spacing:.02em}
-.btag.va{background:rgba(124,58,237,.15);color:var(--va)}.btag.hl{background:rgba(20,184,166,.15);color:var(--hl)}.btag.li{background:rgba(245,158,11,.15);color:var(--li)}.btag.tx{background:rgba(236,72,153,.15);color:var(--tx)}
-footer{text-align:center;padding:24px 40px;color:var(--text3);font-size:.75rem;border-top:1px solid var(--border)}
+.btag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:100px;font-size:.65rem;font-weight:600;letter-spacing:.02em}
+.btag.va{background:rgba(124,58,237,.15);color:var(--va)}.btag.hl{background:rgba(20,184,166,.15);color:var(--hl)}
+.btag.li{background:rgba(245,158,11,.15);color:var(--li)}.btag.tx{background:rgba(236,72,153,.15);color:var(--tx)}
+
+/* ===== FOOTER ===== */
+footer{text-align:center;padding:24px 40px;color:var(--text3);font-size:.75rem;border-top:1px solid var(--border);transition:border-color .3s,color .3s}
 footer b{color:var(--text2);font-weight:500}
-@media(max-width:1000px){.main-grid{grid-template-columns:1fr;padding:20px 16px}.hero{flex-direction:column;align-items:flex-start}.topbar{padding:0 16px}}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1000px){.main-grid{grid-template-columns:1fr;padding:20px 16px}.hero{flex-direction:column;align-items:flex-start}.topbar{padding:0 16px}.hero-text h1{font-size:2.5rem}}
 </style>
 </head>
 <body>
 
+<!-- ===== TOPBAR ===== -->
 <div class="topbar">
 <div class="topbar-left">
-<div class="brand">ExecutionCost<span style="color:var(--va);font-weight:800">.</span>XYZ</div>
+<svg class="logo-svg logo-light" viewBox="0 0 800 140" xmlns="http://www.w3.org/2000/svg">
+  <rect x="24" y="80" width="32" height="17" rx="8.5" fill="#6B6357"/>
+  <rect x="60" y="44" width="32" height="17" rx="8.5" fill="#C77820"/>
+  <text x="118" y="70" dominant-baseline="middle" text-anchor="start" font-family="TeX Gyre Adventor,DM Sans,system-ui,sans-serif" font-weight="700" font-size="62" fill="#17150F">executioncost<tspan font-family="Liberation Mono,JetBrains Mono,monospace" font-weight="400" font-size="38" fill="#8A8272">.xyz</tspan></text>
+</svg>
+<svg class="logo-svg logo-dark" viewBox="0 0 800 140" xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <rect x="24" y="80" width="32" height="17" rx="8.5" fill="#948C7C"/>
+  <rect x="60" y="44" width="32" height="17" rx="8.5" fill="#D98936"/>
+  <text x="118" y="70" dominant-baseline="middle" text-anchor="start" font-family="TeX Gyre Adventor,DM Sans,system-ui,sans-serif" font-weight="700" font-size="62" fill="#F1EDE4">executioncost<tspan font-family="Liberation Mono,JetBrains Mono,monospace" font-weight="400" font-size="38" fill="#948C7C">.xyz</tspan></text>
+</svg>
 <div class="platform-badges">
-<span class="pbadge va">Variational</span><span class="pbadge hl">Hyperliquid</span><span class="pbadge li">Lighter</span><span class="pbadge tx">Trade.xyz</span>
+<span class="pbadge va"><span class="pdot va">V</span>Variational</span>
+<span class="pbadge hl"><span class="pdot hl">H</span>Hyperliquid</span>
+<span class="pbadge li"><span class="pdot li">L</span>Lighter</span>
+<span class="pbadge tx"><span class="pdot tx">T</span>Trade.xyz</span>
 </div>
 </div>
-<div class="topbar-right"><span class="live-dot"></span><span id="dataTime">—</span> · <span id="tokenCount">—</span> tokens</div>
+<div class="topbar-right">
+<button class="toggle-btn" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+  <span class="knob">
+    <svg id="knobSun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    <svg id="knobMoon" viewBox="0 0 24 24" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </span>
+</button>
+</div>
 </div>
 
+<!-- ===== MAIN CONTENT ===== -->
 <div class="main-grid">
+
+<!-- Hero -->
 <div class="hero">
 <div class="hero-text">
 <h1>Where is <span class="grad">execution</span><br>cheapest?</h1>
-<p>Half-spread + taker fees across four derivatives platforms. Variational (0%), Hyperliquid (0.045%), Lighter (0%), Trade.xyz (HIP-3 on HL). 211 tokens on ≥2 venues.</p>
 </div>
 <div class="hero-kpis">
-<div class="hero-kpi"><div class="num va" id="heroV">—</div><div class="lbl">Variational</div></div>
-<div class="hero-kpi"><div class="num hl" id="heroHL">—</div><div class="lbl">Hyperliquid</div></div>
-<div class="hero-kpi"><div class="num li" id="heroL">—</div><div class="lbl">Lighter</div></div>
-<div class="hero-kpi"><div class="num tx" id="heroTX">—</div><div class="lbl">Trade.xyz</div></div>
+<div class="hero-kpi"><div class="kpi-top"><span class="pdot va">V</span></div><div class="num va" id="heroV">—</div><div class="lbl">Variational</div></div>
+<div class="hero-kpi"><div class="kpi-top"><span class="pdot hl">H</span></div><div class="num hl" id="heroHL">—</div><div class="lbl">Hyperliquid</div></div>
+<div class="hero-kpi"><div class="kpi-top"><span class="pdot li">L</span></div><div class="num li" id="heroL">—</div><div class="lbl">Lighter</div></div>
+<div class="hero-kpi"><div class="kpi-top"><span class="pdot tx">T</span></div><div class="num tx" id="heroTX">—</div><div class="lbl">Trade.xyz</div></div>
 </div></div>
 
+<!-- Scatter -->
 <div class="card full">
 <div class="card-header">
 <h2>Distribution — All tokens mixed by execution cost</h2>
@@ -104,6 +213,7 @@ footer b{color:var(--text2);font-weight:500}
 <canvas id="scatterChart"></canvas>
 </div>
 
+<!-- Pie -->
 <div class="card">
 <div class="card-header">
 <h2>Best Platform</h2>
@@ -116,11 +226,13 @@ footer b{color:var(--text2);font-weight:500}
 <canvas id="pieChart"></canvas>
 </div>
 
+<!-- Bar -->
 <div class="card">
 <div class="card-header"><h2>Top 20 tokens — side by side</h2></div>
 <canvas id="barChart"></canvas>
 </div>
 
+<!-- Table -->
 <div class="card full">
 <div class="card-header"><h2>All tokens</h2></div>
 <div class="table-toolbar">
@@ -144,9 +256,9 @@ footer b{color:var(--text2);font-weight:500}
 <div class="table-wrap"><table><thead><tr>
 <th data-sort="ticker">Token</th>
 <th data-sort="platforms">On</th>
-<th data-sort="vExec">Variational</th>
-<th data-sort="hlExec">Hyperliquid</th>
-<th data-sort="lExec">Lighter</th>
+<th data-sort="vExec"><span class="th-inner"><span class="pdot va">V</span>Variational</span></th>
+<th data-sort="hlExec"><span class="th-inner"><span class="pdot hl">H</span>Hyperliquid</span></th>
+<th data-sort="lExec"><span class="th-inner"><span class="pdot li">L</span>Lighter</span></th>
 <th data-sort="best">Best</th>
 </tr></thead>
 <tbody id="tableBody"></tbody></table></div>
@@ -157,19 +269,73 @@ footer b{color:var(--text2);font-weight:500}
 <footer>Execution cost = <b>half-spread + taker fee</b> · <b>Variational</b>: 0% · <b>Hyperliquid</b>: 0.045% base · <b>Lighter</b>: 0% (|mark−index| proxy) · <b>Trade.xyz</b>: HIP-3 on HL (same infra)</footer>
 
 <script>
-// Trade.xyz tokens (HIP-3 markets on Hyperliquid)
+// ===== THEME LOGIC =====
+(function(){
+  var saved=localStorage.getItem('execost-theme')||'light';
+  document.documentElement.setAttribute('data-theme',saved);
+  updateThemeUI(saved);
+})();
+
+function toggleTheme(){
+  var cur=document.documentElement.getAttribute('data-theme');
+  var next=cur==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',next);
+  localStorage.setItem('execost-theme',next);
+  updateThemeUI(next);
+  renderCharts();
+}
+
+function updateThemeUI(t){
+  var btn=document.getElementById('themeToggle');
+  var logoL=document.querySelector('.logo-light');
+  var logoD=document.querySelector('.logo-dark');
+  var sun=document.getElementById('knobSun');
+  var moon=document.getElementById('knobMoon');
+  if(t==='dark'){
+    btn.classList.add('dark');
+    if(logoL)logoL.style.display='none';
+    if(logoD)logoD.style.display='block';
+    if(sun)sun.style.display='none';
+    if(moon)moon.style.display='block';
+  }else{
+    btn.classList.remove('dark');
+    if(logoL)logoL.style.display='block';
+    if(logoD)logoD.style.display='none';
+    if(sun)sun.style.display='block';
+    if(moon)moon.style.display='none';
+  }
+}
+
+function chartColors(){
+  var isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  return {
+    legend:isDark?'#948C7C':'#6B6357',
+    tick:isDark?'#6B6357':'#8A8272',
+    grid:isDark?'rgba(61,52,37,.5)':'rgba(207,197,178,.5)',
+    watermark:isDark?'#F1EDE4':'#6B6357',
+    va:'#8B5CF6',vaAlpha:'rgba(139,92,246,.3)',vaBar:'rgba(139,92,246,.6)',
+    hl:'#14B8A6',hlAlpha:'rgba(20,184,166,.3)',hlBar:'rgba(20,184,166,.6)',
+    li:'#F59E0B',liAlpha:'rgba(245,158,11,.3)',liBar:'rgba(245,158,11,.6)',
+    tx:'#EC4899',txAlpha:'rgba(236,72,153,.3)',txBar:'rgba(236,72,153,.6)',
+    pie:['rgba(139,92,246,.75)','rgba(20,184,166,.75)','rgba(245,158,11,.75)','rgba(236,72,153,.75)'],
+    pieBorder:['#8B5CF6','#14B8A6','#F59E0B','#EC4899']
+  };
+}
+
+// ===== DATA =====
 var tradeXYZTickers = new Set(["XYZ100","TSLA","NVDA","GOLD","HOOD","INTC","PLTR","COIN","META","AAPL","MSFT","ORCL","GOOGL","AMZN","AMD","MU","SNDK","MSTR","CRCL","NFLX","COST","LLY","SKHX","TSM","JPY","EUR","SILVER","RIVN","BABA","CL","COPPER","NATGAS","URANIUM","ALUMINIUM","SMSN","PLATINUM","USAR","CRWV","URNM","PALLADIUM","DXY","GME","KR200","SOFTBANK","JP225","HYUNDAI","KIOXIA","EWY","EWJ","BRENTOIL","VIX","HIMS","SP500","DKNG","LITE","CORN","XLE","WHEAT","TTF","BX","PURRDAT","MRVL","RKLB","BIRD","VOL","DRAM","CBRS","EWZ","KRW","ZM","EBAY","H100","NIFTY","ARM","EWT","GBP","SPCX","IBOV","ASML","MINIMAX","BB","QNT","DELL","IBM","AVGO","NOW","NBIS","WDC","NOK","SMH","BE","ZHIPU","QCOM","STRC","BOT","AMAT","IBIDEN","GIGADEV","SHAZ","SKHY","KSTR"]);
 
 var allData=[],sortField='best',sortAsc=false,currentFilter='all',currentCat='all',pieCategory='all',scatterCategory='all',showAvgs=true;
 
-// Watermark plugin for all charts
+// Watermark plugin
 var watermarkPlugin = {
   id: 'watermark',
   beforeDraw: function(chart) {
     var ctx = chart.ctx;
+    var c=chartColors();
     ctx.save();
     ctx.globalAlpha = 0.04;
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = c.watermark;
     ctx.font = '600 52px "DM Sans", system-ui, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -181,10 +347,7 @@ Chart.register(watermarkPlugin);
 
 async function loadData(){
   try{var r=await fetch('data.json');allData=await r.json();
-    // Tag Trade.xyz tokens
     allData.forEach(function(d){d.on_tradexyz=tradeXYZTickers.has(d.ticker.toUpperCase());});
-    document.getElementById('dataTime').textContent=new Date().toLocaleString();
-    document.getElementById('tokenCount').textContent=allData.length;
     updateHero();renderTable();renderCharts();
   }catch(e){console.error(e);}
 }
@@ -228,20 +391,24 @@ function getData(){
 function renderTable(){
   var rows='';
   getData().forEach(function(r){
-    var b=r.best,bt='btag va';if(b==='Hyperliquid')bt='btag hl';if(b==='Lighter')bt='btag li';
+    var b=r.best,bt='btag va',bdot='<span class=\"pdot va\">V</span>';
+    if(b==='Hyperliquid'){bt='btag hl';bdot='<span class=\"pdot hl\">H</span>'}
+    if(b==='Lighter'){bt='btag li';bdot='<span class=\"pdot li\">L</span>'}
+    if(b==='Trade.xyz'){bt='btag tx';bdot='<span class=\"pdot tx\">T</span>'}
     var vD=r.on_v?r.v_exec.toFixed(4)+'%':'—';
     var hlD=r.on_hl?(r.has_hl_book?r.hl_exec.toFixed(4)+'%':'~'+r.hl_exec.toFixed(4)+'%'):'—';
-    var txD=r.on_tradexyz?(r.has_tx_book?r.tx_exec.toFixed(4)+'%':'~'+r.tx_exec.toFixed(4)+'%'):'';
     var lD=r.on_l?r.l_exec.toFixed(4)+'%':'—';
     var cat=r.on_hl?'₿':'🏛';if(r.on_tradexyz)cat='💱';
     var pf=r.platforms;if(r.on_tradexyz)pf+='+TX';
-    rows+='<tr><td class="token-cell">'+r.ticker+'<span class="cat">'+cat+'</span></td><td>'+pf+'</td><td class="c-va">'+vD+'</td><td class="c-hl">'+hlD+'</td><td class="c-li">'+lD+'</td><td><span class="'+bt+'">'+b+'</span></td></tr>';
+    rows+='<tr><td class=\"token-cell\">'+r.ticker+'<span class=\"cat\">'+cat+'</span></td><td>'+pf+'</td><td class=\"c-va\">'+vD+'</td><td class=\"c-hl\">'+hlD+'</td><td class=\"c-li\">'+lD+'</td><td><span class=\"'+bt+'\">'+bdot+b+'</span></td></tr>';
   });
   document.getElementById('tableBody').innerHTML=rows;
 }
 
 function renderCharts(){
-  // SCATTER – all 4 platforms mixed
+  var c=chartColors();
+
+  // SCATTER
   var ptsV=[],ptsH=[],ptsL=[],ptsTX=[];
   var fd=allData;
   if(scatterCategory==='crypto')fd=allData.filter(function(r){return r.on_hl && !r.on_tradexyz});
@@ -254,7 +421,6 @@ function renderCharts(){
   });
   var c1=document.getElementById('scatterChart').getContext('2d');
   if(window._s)window._s.destroy();
-  // Compute averages for reference lines
   var aV=0,sV=0,cV=0,aH=0,sH=0,cH=0,aL=0,sL=0,cL=0,aT=0,sT=0,cT=0;
   fd.forEach(function(r){
     if(r.on_v&&r.v_exec>0){sV+=r.v_exec;cV++}
@@ -264,20 +430,20 @@ function renderCharts(){
   });
   if(cV>0)aV=sV/cV;if(cH>0)aH=sH/cH;if(cL>0)aL=sL/cL;if(cT>0)aT=sT/cT;
   var ds=[
-    {label:'Variational ('+ptsV.length+')',data:ptsV,backgroundColor:'rgba(124,58,237,.3)',borderColor:'#7C3AED',pointRadius:3,pointHoverRadius:6},
-    {label:'Hyperliquid ('+ptsH.length+')',data:ptsH,backgroundColor:'rgba(20,184,166,.3)',borderColor:'#14B8A6',pointRadius:3,pointHoverRadius:6},
-    {label:'Lighter ('+ptsL.length+')',data:ptsL,backgroundColor:'rgba(245,158,11,.3)',borderColor:'#F59E0B',pointRadius:3,pointHoverRadius:6},
-    {label:'Trade.xyz ('+ptsTX.length+')',data:ptsTX,backgroundColor:'rgba(236,72,153,.3)',borderColor:'#EC4899',pointRadius:3,pointHoverRadius:6}
+    {label:'Variational ('+ptsV.length+')',data:ptsV,backgroundColor:c.vaAlpha,borderColor:c.va,pointRadius:3,pointHoverRadius:6},
+    {label:'Hyperliquid ('+ptsH.length+')',data:ptsH,backgroundColor:c.hlAlpha,borderColor:c.hl,pointRadius:3,pointHoverRadius:6},
+    {label:'Lighter ('+ptsL.length+')',data:ptsL,backgroundColor:c.liAlpha,borderColor:c.li,pointRadius:3,pointHoverRadius:6},
+    {label:'Trade.xyz ('+ptsTX.length+')',data:ptsTX,backgroundColor:c.txAlpha,borderColor:c.tx,pointRadius:3,pointHoverRadius:6}
   ];
-  if(aV>0)ds.push({label:'V avg '+aV.toFixed(3)+'%',data:[{x:aV,y:0},{x:aV,y:1}],showLine:true,borderColor:'#7C3AED',borderWidth:2,borderDash:[5,3],pointRadius:0,order:1,hidden:!showAvgs,showInLegend:false});
-  if(aH>0)ds.push({label:'HL avg '+aH.toFixed(3)+'%',data:[{x:aH,y:0},{x:aH,y:1}],showLine:true,borderColor:'#14B8A6',borderWidth:2,borderDash:[5,3],pointRadius:0,order:1,hidden:!showAvgs,showInLegend:false});
-  if(aL>0)ds.push({label:'L avg '+aL.toFixed(3)+'%',data:[{x:aL,y:0},{x:aL,y:1}],showLine:true,borderColor:'#F59E0B',borderWidth:2,borderDash:[5,3],pointRadius:0,order:1,hidden:!showAvgs,showInLegend:false});
-  if(aT>0)ds.push({label:'TX avg '+aT.toFixed(3)+'%',data:[{x:aT,y:0},{x:aT,y:1}],showLine:true,borderColor:'#EC4899',borderWidth:2,borderDash:[5,3],pointRadius:0,order:1,hidden:!showAvgs,showInLegend:false});
+  if(aV>0)ds.push({label:'V avg '+aV.toFixed(3)+'%',data:[{x:aV,y:0},{x:aV,y:1}],showLine:true,borderColor:c.va,borderWidth:2,borderDash:[5,3],pointRadius:0,order:1,hidden:!showAvgs,showInLegend:false});
+  if(aH>0)ds.push({label:'HL avg '+aH.toFixed(3)+'%',data:[{x:aH,y:0},{x:aH,y:1}],showLine:true,borderColor:c.hl,borderWidth:2,borderDash:[5,3],pointRadius:0,order:1,hidden:!showAvgs,showInLegend:false});
+  if(aL>0)ds.push({label:'L avg '+aL.toFixed(3)+'%',data:[{x:aL,y:0},{x:aL,y:1}],showLine:true,borderColor:c.li,borderWidth:2,borderDash:[5,3],pointRadius:0,order:1,hidden:!showAvgs,showInLegend:false});
+  if(aT>0)ds.push({label:'TX avg '+aT.toFixed(3)+'%',data:[{x:aT,y:0},{x:aT,y:1}],showLine:true,borderColor:c.tx,borderWidth:2,borderDash:[5,3],pointRadius:0,order:1,hidden:!showAvgs,showInLegend:false});
   window._s=new Chart(c1,{type:'scatter',data:{datasets:ds},options:{responsive:true,maintainAspectRatio:false,
-    plugins:{tooltip:{callbacks:{label:function(c){return c.raw.t+': '+c.dataset.label.split(' ')[0]+' = '+c.raw.x.toFixed(4)+'%'}}},legend:{labels:{color:'#8896aa',usePointStyle:true,pointStyle:'circle',padding:18,font:{size:10},filter:function(item){return item.text.indexOf('avg')===-1}}}},
-    scales:{x:{title:{text:'Execution cost %',color:'#8896aa',display:true,font:{size:10}},ticks:{color:'#556278',callback:function(v){return v.toFixed(2)+'%'}},grid:{color:'rgba(30,42,58,.5)'}},y:{display:false}}}});
+    plugins:{tooltip:{callbacks:{label:function(dd){return dd.raw.t+': '+dd.dataset.label.split(' ')[0]+' = '+dd.raw.x.toFixed(4)+'%'}}},legend:{labels:{color:c.legend,usePointStyle:true,pointStyle:'circle',padding:18,font:{size:10},filter:function(item){return item.text.indexOf('avg')===-1}}}},
+    scales:{x:{title:{text:'Execution cost %',color:c.legend,display:true,font:{size:10}},ticks:{color:c.tick,callback:function(v){return v.toFixed(2)+'%'}},grid:{color:c.grid}},y:{display:false}}}});
 
-  // PIE – 4 segments including Trade.xyz
+  // PIE
   var pd=allData;
   if(pieCategory==='crypto')pd=allData.filter(function(r){return r.on_hl && !r.on_tradexyz});
   if(pieCategory==='rwa')pd=allData.filter(function(r){return !r.on_hl || r.on_tradexyz});
@@ -287,19 +453,20 @@ function renderCharts(){
   var txB=pd.filter(function(r){return r.on_tradexyz}).length;
   var c2=document.getElementById('pieChart').getContext('2d');
   if(window._p)window._p.destroy();
-  window._p=new Chart(c2,{type:'doughnut',data:{labels:['Variational ('+vB+')','Hyperliquid ('+hlB+')','Lighter ('+lB+')','Trade.xyz ('+txB+')'],datasets:[{data:[vB,hlB,lB,txB],backgroundColor:['rgba(124,58,237,.75)','rgba(20,184,166,.75)','rgba(245,158,11,.75)','rgba(236,72,153,.75)'],borderColor:['#7C3AED','#14B8A6','#F59E0B','#EC4899'],borderWidth:2,hoverBorderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#8896aa',usePointStyle:true,pointStyle:'circle',padding:18,font:{size:10}}}},cutout:'60%'}});
+  window._p=new Chart(c2,{type:'doughnut',data:{labels:['Variational ('+vB+')','Hyperliquid ('+hlB+')','Lighter ('+lB+')','Trade.xyz ('+txB+')'],datasets:[{data:[vB,hlB,lB,txB],backgroundColor:c.pie,borderColor:c.pieBorder,borderWidth:2,hoverBorderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:c.legend,usePointStyle:true,pointStyle:'circle',padding:18,font:{size:10}}}},cutout:'60%'}});
 
   // BAR
   var barD=allData.filter(function(r){return r.on_v&&r.on_hl}).sort(function(a,b){return b.v_vol-a.v_vol}).slice(0,20);
   var c3=document.getElementById('barChart').getContext('2d');
   if(window._b)window._b.destroy();
   window._b=new Chart(c3,{type:'bar',data:{labels:barD.map(function(r){return r.ticker}),datasets:[
-    {label:'Variational',data:barD.map(function(r){return r.on_v?r.v_exec:null}),backgroundColor:'rgba(124,58,237,.6)',borderColor:'#7C3AED',borderWidth:1,borderRadius:3},
-    {label:'Hyperliquid',data:barD.map(function(r){return r.on_hl?r.hl_exec:null}),backgroundColor:'rgba(20,184,166,.6)',borderColor:'#14B8A6',borderWidth:1,borderRadius:3},
-    {label:'Lighter',data:barD.map(function(r){return r.on_l?r.l_exec:null}),backgroundColor:'rgba(245,158,11,.6)',borderColor:'#F59E0B',borderWidth:1,borderRadius:3}
-  ]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{labels:{color:'#8896aa',usePointStyle:true,pointStyle:'circle',padding:16,font:{size:10}}}},scales:{x:{ticks:{color:'#556278',callback:function(v){return v+'%'}},grid:{color:'rgba(30,42,58,.5)'}},y:{ticks:{color:'#8896aa',font:{size:10}},grid:{display:false}}}}});
+    {label:'Variational',data:barD.map(function(r){return r.on_v?r.v_exec:null}),backgroundColor:c.vaBar,borderColor:c.va,borderWidth:1,borderRadius:3},
+    {label:'Hyperliquid',data:barD.map(function(r){return r.on_hl?r.hl_exec:null}),backgroundColor:c.hlBar,borderColor:c.hl,borderWidth:1,borderRadius:3},
+    {label:'Lighter',data:barD.map(function(r){return r.on_l?r.l_exec:null}),backgroundColor:c.liBar,borderColor:c.li,borderWidth:1,borderRadius:3}
+  ]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{labels:{color:c.legend,usePointStyle:true,pointStyle:'circle',padding:16,font:{size:10}}}},scales:{x:{ticks:{color:c.tick,callback:function(v){return v+'%'}},grid:{color:c.grid}},y:{ticks:{color:c.legend,font:{size:10}},grid:{display:false}}}}});
 }
 
+// ===== EVENT LISTENERS =====
 document.getElementById('searchInput').addEventListener('input',renderTable);
 document.querySelectorAll('.chip[data-filter]').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.chip[data-filter]').forEach(function(x){x.classList.remove('active')});this.classList.add('active');currentFilter=this.dataset.filter;renderTable()})});
 document.querySelectorAll('.chip[data-cat]').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.chip[data-cat]').forEach(function(x){x.classList.remove('active')});this.classList.add('active');currentCat=this.dataset.cat;renderTable()})});
@@ -307,6 +474,7 @@ document.querySelectorAll('.pill[data-piecat]').forEach(function(b){b.addEventLi
 document.querySelectorAll('.pill[data-scatcat]').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.pill[data-scatcat]').forEach(function(x){x.classList.remove('active')});this.classList.add('active');scatterCategory=this.dataset.scatcat;renderCharts()})});
 document.querySelectorAll('th[data-sort]').forEach(function(th){th.addEventListener('click',function(){var f=th.dataset.sort;if(sortField===f)sortAsc=!sortAsc;else{sortField=f;sortAsc=false}renderTable()})});
 function toggleAvgs(){showAvgs=!showAvgs;var b=document.getElementById('avgToggle');if(showAvgs){b.classList.add('active')}else{b.classList.remove('active')};renderCharts()}
+
 loadData();
 </script>
 </body>
