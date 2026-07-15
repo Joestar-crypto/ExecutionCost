@@ -458,13 +458,73 @@ function renderCharts(){
     {label:'Lighter ('+ptsL.length+')',data:ptsL,backgroundColor:c.liAlpha,borderColor:c.liStroke,pointBorderColor:c.liStroke,pointBorderWidth:1,pointRadius:4,pointHoverRadius:9,pointHoverBorderWidth:3,pointHoverBorderColor:c.li},
     {label:'Trade.xyz ('+ptsTX.length+')',data:ptsTX,backgroundColor:c.txAlpha,borderColor:c.txStroke,pointBorderColor:c.txStroke,pointBorderWidth:1,pointRadius:4,pointHoverRadius:9,pointHoverBorderWidth:3,pointHoverBorderColor:c.tx}
   ];
-  if(aV>0)ds.push({label:'V avg '+aV.toFixed(3)+'%',data:[{x:aV,y:0},{x:aV,y:1}],showLine:true,borderColor:c.va,borderWidth:2,borderDash:[5,3],pointRadius:0,order:1,hidden:!showAvgs,showInLegend:false});
-  if(aH>0)ds.push({label:'HL avg '+aH.toFixed(3)+'%',data:[{x:aH,y:0},{x:aH,y:1}],showLine:true,borderColor:c.hl,borderWidth:2,borderDash:[5,3],pointRadius:0,order:1,hidden:!showAvgs,showInLegend:false});
-  if(aL>0)ds.push({label:'L avg '+aL.toFixed(3)+'%',data:[{x:aL,y:0},{x:aL,y:1}],showLine:true,borderColor:c.li,borderWidth:2,borderDash:[5,3],pointRadius:0,order:1,hidden:!showAvgs,showInLegend:false});
-  if(aT>0)ds.push({label:'TX avg '+aT.toFixed(3)+'%',data:[{x:aT,y:0},{x:aT,y:1}],showLine:true,borderColor:c.tx,borderWidth:2,borderDash:[5,3],pointRadius:0,order:1,hidden:!showAvgs,showInLegend:false});
+  if(aV>0)ds.push({label:'V avg '+aV.toFixed(3)+'%',data:[{x:aV,y:0},{x:aV,y:0.5},{x:aV,y:1}],showLine:true,borderColor:c.va,borderWidth:2,borderDash:[5,3],pointRadius:[0,5,0],pointBackgroundColor:[c.va,c.va,c.va],pointBorderColor:c.va,pointBorderWidth:1,pointHitRadius:[0,22,0],pointHoverRadius:[0,8,0],pointHoverBorderWidth:3,order:1,hidden:!showAvgs,showInLegend:false,avgVal:aV});
+  if(aH>0)ds.push({label:'HL avg '+aH.toFixed(3)+'%',data:[{x:aH,y:0},{x:aH,y:0.5},{x:aH,y:1}],showLine:true,borderColor:c.hl,borderWidth:2,borderDash:[5,3],pointRadius:[0,5,0],pointBackgroundColor:[c.hl,c.hl,c.hl],pointBorderColor:c.hl,pointBorderWidth:1,pointHitRadius:[0,22,0],pointHoverRadius:[0,8,0],pointHoverBorderWidth:3,order:1,hidden:!showAvgs,showInLegend:false,avgVal:aH});
+  if(aL>0)ds.push({label:'L avg '+aL.toFixed(3)+'%',data:[{x:aL,y:0},{x:aL,y:0.5},{x:aL,y:1}],showLine:true,borderColor:c.li,borderWidth:2,borderDash:[5,3],pointRadius:[0,5,0],pointBackgroundColor:[c.li,c.li,c.li],pointBorderColor:c.li,pointBorderWidth:1,pointHitRadius:[0,22,0],pointHoverRadius:[0,8,0],pointHoverBorderWidth:3,order:1,hidden:!showAvgs,showInLegend:false,avgVal:aL});
+  if(aT>0)ds.push({label:'TX avg '+aT.toFixed(3)+'%',data:[{x:aT,y:0},{x:aT,y:0.5},{x:aT,y:1}],showLine:true,borderColor:c.tx,borderWidth:2,borderDash:[5,3],pointRadius:[0,5,0],pointBackgroundColor:[c.tx,c.tx,c.tx],pointBorderColor:c.tx,pointBorderWidth:1,pointHitRadius:[0,22,0],pointHoverRadius:[0,8,0],pointHoverBorderWidth:3,order:1,hidden:!showAvgs,showInLegend:false,avgVal:aT});
   window._s=new Chart(c1,{type:'scatter',data:{datasets:ds},options:{responsive:true,maintainAspectRatio:false,
-    plugins:{tooltip:{callbacks:{label:function(dd){return dd.raw.t+': '+dd.dataset.label.split(' ')[0]+' = '+dd.raw.x.toFixed(4)+'%'}}},legend:{labels:{color:c.legend,usePointStyle:true,pointStyle:'circle',padding:18,font:{size:10},filter:function(item){return item.text.indexOf('avg')===-1}}}},
+    plugins:{tooltip:{callbacks:{label:function(dd){if(dd.dataset.avgVal!=null)return dd.dataset.label;return dd.raw.t+': '+dd.dataset.label.split(' ')[0]+' = '+dd.raw.x.toFixed(4)+'%'}}},legend:{labels:{color:c.legend,usePointStyle:true,pointStyle:'circle',padding:18,font:{size:10},filter:function(item){return item.text.indexOf('avg')===-1}}}},
     scales:{x:{title:{text:'Execution cost %',color:c.legend,display:true,font:{size:10}},ticks:{color:c.tick,callback:function(v){return v.toFixed(2)+'%'}},grid:{color:c.grid}},y:{display:false}}}});
+  // Attach avg line hover via mousemove on canvas
+  (function(chart){
+    var canvas = chart.canvas;
+    canvas.onmousemove = function(e) {
+      if (!showAvgs) return;
+      var rect = canvas.getBoundingClientRect();
+      var mx = e.clientX - rect.left;
+      var xScale = chart.scales['x'];
+      if (!xScale || !xScale.getValueForPixel) return;
+      var mouseVal = xScale.getValueForPixel(mx);
+      var hit = null;
+      var range = (xScale.max - xScale.min) * 0.02;
+      for (var i = 0; i < chart.data.datasets.length; i++) {
+        var d = chart.data.datasets[i];
+        if (d.avgVal == null || d.hidden) continue;
+        if (Math.abs(mouseVal - d.data[0].x) < range) {
+          hit = { x: d.data[0].x, color: d.borderColor, label: d.label };
+          break;
+        }
+      }
+      if (!chart._lastHit && !hit) return;
+      if (chart._lastHit && hit && chart._lastHit.label === hit.label) return;
+      chart._lastHit = hit;
+      chart.draw();
+    };
+    canvas.onmouseleave = function() { if(chart._lastHit){ chart._lastHit=null; chart.draw(); } };
+    // Override draw to show avg hover
+    var origDraw = chart.draw;
+    chart.draw = function() {
+      origDraw.call(chart);
+      if (!chart._lastHit) return;
+      var h = chart._lastHit;
+      var xScale = chart.scales['x'];
+      var px = xScale.getPixelForValue(h.x);
+      var ctx = chart.ctx;
+      var yTop = chart.scales['y'].top;
+      var yBot = chart.scales['y'].bottom;
+      ctx.save();
+      ctx.strokeStyle = h.color;
+      ctx.globalAlpha = 0.2;
+      ctx.lineWidth = 8;
+      ctx.setLineDash([5,4]);
+      ctx.beginPath(); ctx.moveTo(px, yTop); ctx.lineTo(px, yBot); ctx.stroke();
+      ctx.globalAlpha = 1;
+      ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(px, yTop); ctx.lineTo(px, yBot); ctx.stroke();
+      ctx.setLineDash([]);
+      var txt = h.label;
+      ctx.font = '600 11px "DM Sans", sans-serif';
+      var tw = ctx.measureText(txt).width;
+      var lx = px + 8;
+      if (lx + tw + 16 > chart.width) lx = px - tw - 24;
+      var ly = yTop + 16;
+      ctx.fillStyle = 'rgba(0,0,0,.75)';
+      ctx.fillRect(lx, ly-11, tw+16, 20);
+      ctx.fillStyle = h.color;
+      ctx.fillText(txt, lx+8, ly+4);
+      ctx.restore();
+    };
+  })(window._s);
 
   // PIE
   var pd=allData;
