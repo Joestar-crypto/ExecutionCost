@@ -361,7 +361,7 @@ var watermarkPlugin = {
 Chart.register(watermarkPlugin);
 
 async function loadData(){
-  try{var r=await fetch('data.json');allData=await r.json();
+  try{var r=await fetch('data.json?v='+Date.now());allData=await r.json();
     allData.forEach(function(d){
       d.on_tradexyz=tradeXYZTickers.has(d.ticker.toUpperCase());
       // Fallback: if size-adjusted fields missing, use base exec cost
