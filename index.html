@@ -71,9 +71,13 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 
 /* ===== TOPBAR ===== */
 .topbar{position:sticky;top:0;z-index:100;background:var(--topbar-bg);backdrop-filter:blur(24px) saturate(120%);-webkit-backdrop-filter:blur(24px) saturate(120%);border-bottom:1px solid var(--border);padding:0 40px;height:104px;display:flex;align-items:center;justify-content:space-between;transition:background .3s,border-color .3s}
-.topbar-left{display:flex;align-items:center;gap:20px}
+.topbar-left{display:flex;align-items:center;gap:20px;flex-shrink:0}
 .topbar-left .logo-svg{height:80px;width:auto}
-.topbar-right{display:flex;align-items:center;gap:16px}
+.topbar-right{display:flex;align-items:center;gap:16px;flex-shrink:0}
+.topbar-center{display:flex;align-items:center;gap:8px;position:absolute;left:50%;transform:translateX(-50%)}
+.joestar-btn{display:flex;align-items:center;gap:8px;padding:8px 18px;border-radius:100px;font-size:.85rem;font-weight:600;color:var(--text2);text-decoration:none;border:1px solid var(--border);transition:all .15s;white-space:nowrap}
+.joestar-btn:hover{border-color:var(--accent);color:var(--accent)}
+.joestar-img{height:30px;width:auto;border-radius:50%}
 
 /* ===== PLATFORM LOGOS ===== */
 .plogo{height:14px;width:auto;object-fit:contain;flex-shrink:0;display:inline-block;vertical-align:middle;border-radius:2px}
@@ -87,6 +91,31 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 .toggle-btn.dark{background:var(--accent);border-color:var(--accent)}
 .toggle-btn.dark .knob{background:#fff}
 .toggle-btn.dark .knob svg{stroke:var(--accent)}
+
+/* ===== TAB BUTTONS (in topbar) ===== */
+.tab-btn{padding:8px 20px;border-radius:100px;font-size:.78rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text2);transition:all .15s;font-family:inherit;white-space:nowrap}
+.tab-btn:hover{border-color:var(--accent);color:var(--text)}
+.tab-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* ===== LEADERBOARD ===== */
+.crown{font-size:1.2rem}
+.lb-best{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:600}
+.lb-platform{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:100px;font-size:.7rem;font-weight:600}
+.lb-platform .plogo{height:12px}
+.lb-v{background:rgba(91,79,207,.16);color:var(--va)}.lb-hl{background:rgba(13,158,140,.16);color:var(--hl)}
+.lb-l{background:rgba(224,93,42,.14);color:var(--li)}.lb-tx{background:rgba(200,138,4,.15);color:var(--tx)}
+.lb-as{background:rgba(14,165,233,.15);color:var(--as)}.lb-ex{background:rgba(236,72,153,.15);color:var(--ex)}.lb-gr{background:rgba(132,204,22,.15);color:var(--gr)}
+
+/* ===== LEADERBOARD WINNERS ===== */
+.lb-winners{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;padding:0 0 8px}
+.lb-winner{text-align:center;padding:20px 32px;background:var(--elevated);border:1px solid var(--border);border-radius:var(--r);min-width:140px;transition:border-color .2s;position:relative}
+.lb-winner:hover{border-color:var(--accent)}
+.lb-winner .crown-icon{font-size:2rem;display:block;margin-bottom:4px}
+.lb-winner .wlogo{height:48px;width:auto;border-radius:8px;display:block;margin:8px auto}
+.lb-winner .wname{font-size:.75rem;font-weight:600;color:var(--text);margin-top:4px}
+.lb-winner .wcount{font-size:.7rem;color:var(--text2);margin-top:2px}
+.lb-winner .wcat{font-size:.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.lb-winner.winner-gold{border-color:var(--accent);background:var(--accent-glow);box-shadow:0 0 20px var(--accent-glow)}
 
 /* ===== MAIN GRID ===== */
 .main-grid{max-width:1480px;margin:0 auto;padding:32px 40px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
@@ -182,17 +211,15 @@ footer b{color:var(--text2);font-weight:500}
   <rect x="60" y="44" width="32" height="17" rx="8.5" fill="#D98936"/>
   <text x="118" y="70" dominant-baseline="middle" text-anchor="start" font-family="TeX Gyre Adventor,DM Sans,system-ui,sans-serif" font-weight="700" font-size="62" fill="#F1EDE4">executioncost<tspan font-family="Liberation Mono,JetBrains Mono,monospace" font-weight="400" font-size="38" fill="#948C7C">.xyz</tspan></text>
 </svg>
-<div class="platform-badges">
-<span class="pbadge va"><img class="plogo" src="Variational.jpg" alt="V">Variational</span>
-<span class="pbadge hl"><img class="plogo" src="Hyperliquid.jpg" alt="H">Hyperliquid</span>
-<span class="pbadge li"><img class="plogo" src="Lighter.jpg" alt="L">Lighter</span>
-<span class="pbadge tx"><img class="plogo" src="Tradexyz.jpg" alt="T">Trade.xyz</span>
-<span class="pbadge as"><img class="plogo" src="Aster.jpg" alt="A">Aster</span>
-<span class="pbadge ex"><img class="plogo" src="Extended.jpg" alt="E">Extended</span>
-<span class="pbadge gr"><img class="plogo" src="GRVT.jpg" alt="G">GRVT</span>
 </div>
+<div class="topbar-center">
+<button class="tab-btn active" onclick="switchTab('dashboard')">📊 Dashboard</button>
+<button class="tab-btn" onclick="switchTab('leaderboard')">🏆 Leaderboard</button>
 </div>
 <div class="topbar-right">
+<a href="https://x.com/JoestarCrypto" target="_blank" class="joestar-btn" title="Made by Joestar">
+  <img src="Joestar.jpg" alt="Joestar" class="joestar-img"> Made by Joestar
+</a>
 <button class="toggle-btn" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark/light mode">
   <span class="knob">
     <svg id="knobSun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
@@ -203,7 +230,7 @@ footer b{color:var(--text2);font-weight:500}
 </div>
 
 <!-- ===== MAIN CONTENT ===== -->
-<div class="main-grid">
+<div class="main-grid" id="dashboardView">
 
 <!-- Hero -->
 <div class="hero">
@@ -302,6 +329,39 @@ footer b{color:var(--text2);font-weight:500}
 <tbody id="tableBody"></tbody></table></div>
 </div>
 
+</div>
+
+<!-- ===== LEADERBOARD VIEW ===== -->
+<div class="main-grid" id="leaderboardView" style="display:none">
+<!-- Winner hero -->
+<div class="card full" id="lbWinnerCard">
+<div class="card-header"><h2>👑 Dominant Platforms by Category</h2></div>
+<div class="lb-winners" id="lbWinners"></div>
+</div>
+<div class="card full">
+<div class="card-header">
+<h2>🏆 Execution Cost Leaderboard</h2>
+<div class="pills pills-row">
+<span class="pill-group">
+<button class="pill active" data-lbcat="top10">Top 10</button>
+<button class="pill" data-lbcat="top100">Top 100</button>
+<button class="pill" data-lbcat="top1000">Top 1000</button>
+<button class="pill" data-lbcat="rwa">RWA</button>
+</span>
+<span class="pill-group pill-center"></span>
+<span class="pill-group">
+<button class="pill active" data-lbsize="10k">$10k</button>
+<button class="pill" data-lbsize="100k">$100k</button>
+<button class="pill" data-lbsize="1M">$1M</button>
+</span>
+</div>
+</div>
+<div class="table-wrap"><table><thead><tr>
+<th>#</th><th>Token</th><th>Best Exec</th><th>Platform</th>
+<th>$10k</th><th>$100k</th><th>$1M</th>
+</tr></thead>
+<tbody id="leaderboardBody"></tbody></table></div>
+</div>
 </div>
 
 <footer>Execution cost = <b>half-spread + taker fee</b> · <b>Variational</b>: 0% · <b>Hyperliquid</b>: 0.045% base · <b>Lighter</b>: 0% (|mark−index| proxy) · <b>Trade.xyz</b>: HIP-3 on HL (same infra) · <b>Extended</b>: 0.025% · <b>Aster</b>: 0.05% est. · <b>GRVT</b>: coming soon</footer>
@@ -475,6 +535,10 @@ async function loadData(){
       if(d.has_as_book===undefined)d.has_as_book=false;
       if(d.has_ex_book===undefined)d.has_ex_book=false;
       if(d.has_gr_book===undefined)d.has_gr_book=false;
+      // Recompute best across all 7 platforms
+      var bestP='-', bestC=999;
+      [{p:'Variational',on:d.on_v,e:d.v_exec},{p:'Hyperliquid',on:d.on_hl&&d.has_hl_book,e:d.hl_exec},{p:'Lighter',on:d.on_l,e:d.l_exec},{p:'Trade.xyz',on:d.on_tradexyz&&d.has_tx_book,e:d.tx_exec},{p:'Aster',on:d.on_aster&&d.has_as_book,e:d.as_exec},{p:'Extended',on:d.on_extended&&d.has_ex_book,e:d.ex_exec},{p:'GRVT',on:d.on_grvt&&d.has_gr_book,e:d.gr_exec}].forEach(function(x){if(x.on&&x.e!=null&&x.e>0&&x.e<bestC){bestC=x.e;bestP=x.p}});
+      if(bestP!=='-') d.best=bestP;
     });
     updateHero();renderTable();renderCharts();
   }catch(e){console.error(e);}
@@ -484,10 +548,10 @@ function updateHero(){
   document.getElementById('heroV').textContent=allData.filter(function(r){return r.best==='Variational'}).length;
   document.getElementById('heroHL').textContent=allData.filter(function(r){return r.best==='Hyperliquid'}).length;
   document.getElementById('heroL').textContent=allData.filter(function(r){return r.best==='Lighter'}).length;
-  document.getElementById('heroTX').textContent=allData.filter(function(r){return r.on_tradexyz}).length;
-  document.getElementById('heroAS').textContent=allData.filter(function(r){return r.on_aster}).length;
-  document.getElementById('heroEX').textContent=allData.filter(function(r){return r.on_extended}).length;
-  document.getElementById('heroGR').textContent=allData.filter(function(r){return r.on_grvt}).length;
+  document.getElementById('heroTX').textContent=allData.filter(function(r){return r.best==='Trade.xyz'}).length;
+  document.getElementById('heroAS').textContent=allData.filter(function(r){return r.best==='Aster'}).length;
+  document.getElementById('heroEX').textContent=allData.filter(function(r){return r.best==='Extended'}).length;
+  document.getElementById('heroGR').textContent=allData.filter(function(r){return r.best==='GRVT'}).length;
 }
 
 function getData(){
@@ -672,7 +736,126 @@ function renderCharts(){
   window._b=new Chart(c3,{type:'bar',data:{labels:barD.map(function(r){return r.ticker}),datasets:barDs},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{labels:{color:c.legend,usePointStyle:true,pointStyle:'circle',padding:16,font:{size:10}}}},scales:{x:{ticks:{color:c.tick,callback:function(v){return v+'%'}},grid:{color:c.grid}},y:{ticks:{color:c.legend,font:{size:10}},grid:{display:false}}}}});
 }
 
-// ===== EVENT LISTENERS =====
+// ===== MARKET CAP CLASSIFICATION =====
+var marketCapRanks = {"top10":["BTC","ETH","BNB","SOL","XRP","DOGE","ADA","AVAX","DOT","LINK"],"top100":["BTC","ETH","BNB","SOL","XRP","DOGE","ADA","AVAX","DOT","LINK","TRX","MATIC","SHIB","LTC","BCH","ATOM","UNI","NEAR","ETC","XLM","FIL","HBAR","ICP","APT","VET","ARB","CRO","MKR","AAVE","OP","GRT","ALGO","QNT","THETA","FTM","EGLD","SAND","MANA","AXS","EOS","KLAY","XTZ","FLOW","CHZ","ENJ","BAT","ZIL","KSM","CRV","COMP","SNX","SUSHI","YFI","1INCH","CELO","ANKR","STMX","HOT","ZRX","OCEAN","DYDX","GALA","LRC","IMX","ROSE","RNDR","INJ","BLUR","MINA","TIA","SEI","SUI","APT","FET","AGIX","WLD","STRK","PEPE","WIF","BONK","FLOKI","JUP","PYTH","JTO","ENA","ETHENA","KAITO","ONDO","PENDLE","EIGEN","MODE","ZRO","NOT","TON"]};
+
+function getTokenCategory(ticker){
+  var t = ticker.toUpperCase();
+  if (marketCapRanks.top10.indexOf(t) >= 0) return 'top10';
+  if (marketCapRanks.top100.indexOf(t) >= 0) return 'top100';
+  // RWA: tokens on tradexyz or not on hyperliquid
+  var d = allData.find(function(x){return x.ticker.toUpperCase()===t});
+  if (d && (d.on_tradexyz || !d.on_hl)) return 'rwa';
+  return 'top1000';
+}
+
+// ===== TAB SWITCH =====
+function switchTab(tab){
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  if(tab==='dashboard'){
+    document.getElementById('dashboardView').style.display='grid';
+    document.getElementById('leaderboardView').style.display='none';
+    document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
+    renderCharts();
+  } else {
+    document.getElementById('dashboardView').style.display='none';
+    document.getElementById('leaderboardView').style.display='grid';
+    document.querySelector('.tab-btn:nth-child(2)').classList.add('active');
+    renderLeaderboard();
+  }
+}
+
+// ===== LEADERBOARD =====
+var lbCategory='top10', lbSize='10k';
+
+function getBestExec(token, size){
+  var sf = size==='10k'?'_10k':size==='100k'?'_100k':'_1M';
+  var best = 999, bestPlat = '-', bestColor = '';
+  var platforms = [
+    {on:token.on_v, exec:token['v_exec'+sf], name:'Variational', img:'Variational.jpg', cls:'lb-v'},
+    {on:token.on_hl&&token.has_hl_book, exec:token['hl_exec'+sf], name:'Hyperliquid', img:'Hyperliquid.jpg', cls:'lb-hl'},
+    {on:token.on_l, exec:token['l_exec'+sf], name:'Lighter', img:'Lighter.jpg', cls:'lb-l'},
+    {on:token.on_tradexyz&&token.has_tx_book, exec:token['tx_exec'+sf], name:'Trade.xyz', img:'Tradexyz.jpg', cls:'lb-tx'},
+    {on:token.on_aster&&token.has_as_book, exec:token['as_exec'+sf], name:'Aster', img:'Aster.jpg', cls:'lb-as'},
+    {on:token.on_extended&&token.has_ex_book, exec:token['ex_exec'+sf], name:'Extended', img:'Extended.jpg', cls:'lb-ex'},
+    {on:token.on_grvt&&token.has_gr_book, exec:token['gr_exec'+sf], name:'GRVT', img:'GRVT.jpg', cls:'lb-gr'}
+  ];
+  for(var i=0;i<platforms.length;i++){
+    var p=platforms[i];
+    if(p.on && p.exec!=null && p.exec>0 && p.exec<best){best=p.exec; bestPlat=p.name; bestCls=p.cls; bestImg=p.img}
+  }
+  return {exec:best, plat:bestPlat, cls:bestCls, img:bestImg};
+}
+
+function renderLeaderboard(){
+  var fd = allData.filter(function(t){
+    var c = getTokenCategory(t.ticker);
+    if(lbCategory==='top10') return c==='top10';
+    if(lbCategory==='top100') return c==='top10'||c==='top100';
+    if(lbCategory==='top1000') return c!=='rwa';
+    if(lbCategory==='rwa') return c==='rwa';
+    return true;
+  });
+
+  // Compute best exec for each token at selected size
+  fd.forEach(function(t){t.lbBest=getBestExec(t, lbSize)});
+  fd = fd.filter(function(t){return t.lbBest.exec<999});
+  fd.sort(function(a,b){return a.lbBest.exec - b.lbBest.exec});
+
+  // Compute overall winners per category (across ALL categories)
+  var catPlatforms = ['Variational','Hyperliquid','Lighter','Trade.xyz','Aster','Extended','GRVT'];
+  var catLogos = {Variational:'Variational.jpg',Hyperliquid:'Hyperliquid.jpg',Lighter:'Lighter.jpg',Tradexyz:'Tradexyz.jpg',Aster:'Aster.jpg',Extended:'Extended.jpg',GRVT:'GRVT.jpg'};
+  var cats = [
+    {key:'top10', label:'Top 10', filter:function(t){var c=getTokenCategory(t.ticker);return c==='top10'}},
+    {key:'top100', label:'Top 100', filter:function(t){var c=getTokenCategory(t.ticker);return c==='top10'||c==='top100'}},
+    {key:'top1000', label:'Top 1000', filter:function(t){var c=getTokenCategory(t.ticker);return c!=='rwa'}},
+    {key:'rwa', label:'RWA', filter:function(t){var c=getTokenCategory(t.ticker);return c==='rwa'}}
+  ];
+  var winHTML='';
+  cats.forEach(function(cat){
+    var ctokens = allData.filter(cat.filter);
+    var counts = {};
+    catPlatforms.forEach(function(p){counts[p]=0});
+    ctokens.forEach(function(t){
+      var b = getBestExec(t, lbSize);
+      if(b.plat!=='-') counts[b.plat]=(counts[b.plat]||0)+1;
+    });
+    // Find winner
+    var winner='-', maxC=0;
+    for(var p in counts){if(counts[p]>maxC){maxC=counts[p];winner=p}}
+    var wlogo = catLogos[winner] || '';
+    var isGold = (cat.key===lbCategory);
+    winHTML+='<div class="lb-winner'+(isGold?' winner-gold':'')+'">'+
+      '<span class="crown-icon">👑</span>'+
+      (wlogo?'<img class="wlogo" src="'+wlogo+'" alt="'+winner+'">':'')+
+      '<div class="wname">'+winner+'</div>'+
+      '<div class="wcount">'+maxC+' / '+ctokens.length+' tokens</div>'+
+      '<div class="wcat">'+cat.label+'</div></div>';
+  });
+  document.getElementById('lbWinners').innerHTML=winHTML;
+
+  var rows='';
+  fd.forEach(function(t,i){
+    var b=t.lbBest;
+    var crown = i===0 ? ' 👑' : '';
+    var rank = i+1;
+    var cat = getTokenCategory(t.ticker);
+    var catEmoji = cat==='top10'?'⭐':cat==='top100'?'🔥':cat==='top1000'?'₿':'💱';
+    var sf10k = getBestExec(t,'10k');
+    var sf100k = getBestExec(t,'100k');
+    var sf1M = getBestExec(t,'1M');
+    var f10k=sf10k.exec<999?sf10k.exec.toFixed(4)+'%':'—';
+    var f100k=sf100k.exec<999?sf100k.exec.toFixed(4)+'%':'—';
+    var f1M=sf1M.exec<999?sf1M.exec.toFixed(4)+'%':'—';
+    rows+='<tr'+(i===0?' style="background:var(--accent-glow)"':'')+'>'+
+      '<td><b>'+rank+'</b>'+crown+'</td>'+
+      '<td class="token-cell">'+t.ticker+'<span class="cat">'+catEmoji+'</span></td>'+
+      '<td class="lb-best '+(b.cls.replace('lb-','c-'))+'">'+b.exec.toFixed(4)+'%</td>'+
+      '<td><span class="lb-platform '+b.cls+'"><img class="plogo" src="'+b.img+'">'+b.plat+'</span></td>'+
+      '<td class="c-va">'+f10k+'</td><td class="c-va">'+f100k+'</td><td class="c-va">'+f1M+'</td></tr>';
+  });
+  document.getElementById('leaderboardBody').innerHTML=rows;
+}
 document.getElementById('searchInput').addEventListener('input',renderTable);
 document.querySelectorAll('.chip[data-filter]').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.chip[data-filter]').forEach(function(x){x.classList.remove('active')});this.classList.add('active');currentFilter=this.dataset.filter;renderTable()})});
 document.querySelectorAll('.chip[data-cat]').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.chip[data-cat]').forEach(function(x){x.classList.remove('active')});this.classList.add('active');currentCat=this.dataset.cat;renderTable()})});
@@ -736,6 +919,16 @@ function syncOptUI(){
   document.querySelectorAll('.chip.opt-platform[data-opt="extended"], .pbadge.ex').forEach(function(el){if(showExtended)el.classList.add('active');else el.classList.remove('active')});
   document.querySelectorAll('.chip.opt-platform[data-opt="grvt"], .pbadge.gr').forEach(function(el){if(showGrvt)el.classList.add('active');else el.classList.remove('active')});
 }
+
+// Leaderboard pills
+document.querySelectorAll('.pill[data-lbcat]').forEach(function(b){b.addEventListener('click',function(){
+  document.querySelectorAll('.pill[data-lbcat]').forEach(function(x){x.classList.remove('active')});
+  this.classList.add('active');lbCategory=this.dataset.lbcat;renderLeaderboard();
+})});
+document.querySelectorAll('.pill[data-lbsize]').forEach(function(b){b.addEventListener('click',function(){
+  document.querySelectorAll('.pill[data-lbsize]').forEach(function(x){x.classList.remove('active')});
+  this.classList.add('active');lbSize=this.dataset.lbsize;renderLeaderboard();
+})});
 
 loadData();
 </script>
