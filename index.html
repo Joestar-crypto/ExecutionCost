@@ -35,6 +35,7 @@
   --text:#17150F;--text2:#6B6357;--text3:#8A8272;
   --accent:#C77820;--accent-glow:rgba(199,120,32,.15);--accent-bg:rgba(199,120,32,.08);
   --va:#7C3AED;--hl:#0D9488;--li:#F59E0B;--tx:#DB2777;
+  --as:#0EA5E9;--ex:#EC4899;--gr:#84CC16;
   --green:#16A34A;--red:#DC2626;
   --r:16px;--rl:20px;
   --topbar-bg:rgba(249,246,240,.88);
@@ -52,6 +53,7 @@
   --text:#F1EDE4;--text2:#948C7C;--text3:#6B6357;
   --accent:#D98936;--accent-glow:rgba(217,137,54,.2);--accent-bg:rgba(217,137,54,.12);
   --va:#A78BFA;--hl:#2DD4A7;--li:#F0945C;--tx:#F5C842;
+  --as:#38BDF8;--ex:#F472B6;--gr:#BEF264;
   --green:#51cf66;--red:#ff6b6b;
   --r:16px;--rl:20px;
   --topbar-bg:rgba(23,21,15,.88);
@@ -100,7 +102,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 .hero-kpi .kpi-top{display:flex;align-items:center;justify-content:center;margin-bottom:8px}
 .plogo-hero{height:36px!important;border-radius:4px!important}
 .hero-kpi .num{font-family:'JetBrains Mono',monospace;font-size:2.2rem;font-weight:600;letter-spacing:-.03em;line-height:1}
-.hero-kpi .num.va{color:var(--va)}.hero-kpi .num.hl{color:var(--hl)}.hero-kpi .num.li{color:var(--li)}.hero-kpi .num.tx{color:var(--tx)}
+.hero-kpi .num.va{color:var(--va)}.hero-kpi .num.hl{color:var(--hl)}.hero-kpi .num.li{color:var(--li)}.hero-kpi .num.tx{color:var(--tx)}.hero-kpi .num.as{color:var(--as)}.hero-kpi .num.ex{color:var(--ex)}.hero-kpi .num.gr{color:var(--gr)}
 .hero-kpi .lbl{font-size:.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-weight:500;margin-top:2px}
 
 /* ===== PLATFORM BADGES ===== */
@@ -109,6 +111,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 .pbadge .plogo{height:12px}
 .pbadge.va{background:rgba(91,79,207,.15);color:var(--va)}.pbadge.hl{background:rgba(13,158,140,.15);color:var(--hl)}
 .pbadge.li{background:rgba(224,93,42,.13);color:var(--li)}.pbadge.tx{background:rgba(200,138,4,.14);color:var(--tx)}
+.pbadge.as{background:rgba(14,165,233,.13);color:var(--as)}.pbadge.ex{background:rgba(236,72,153,.13);color:var(--ex)}.pbadge.gr{background:rgba(132,204,22,.13);color:var(--gr)}
 
 /* ===== CARDS ===== */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:28px;overflow:hidden;transition:border-color .2s,background .3s,box-shadow .2s;box-shadow:var(--shadow-sm)}
@@ -146,11 +149,15 @@ tbody tr{transition:background .12s}tbody tr:hover{background:var(--hover-row)}
 .c-hl{color:var(--hl);font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:500}
 .c-li{color:var(--li);font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:500}
 .c-tx{color:var(--tx);font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:500}
+.c-as{color:var(--as);font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:500}
+.c-ex{color:var(--ex);font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:500}
+.c-gr{color:var(--gr);font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:500}
 .dg{color:var(--green)}.dr{color:var(--red)}
 .btag{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:100px;font-size:.65rem;font-weight:600;letter-spacing:.02em}
 .btag .plogo{height:11px}
 .btag.va{background:rgba(91,79,207,.16);color:var(--va)}.btag.hl{background:rgba(13,158,140,.16);color:var(--hl)}
 .btag.li{background:rgba(224,93,42,.14);color:var(--li)}.btag.tx{background:rgba(200,138,4,.15);color:var(--tx)}
+.btag.as{background:rgba(14,165,233,.15);color:var(--as)}.btag.ex{background:rgba(236,72,153,.15);color:var(--ex)}.btag.gr{background:rgba(132,204,22,.15);color:var(--gr)}
 
 /* ===== FOOTER ===== */
 footer{text-align:center;padding:24px 40px;color:var(--text3);font-size:.75rem;border-top:1px solid var(--border);transition:border-color .3s,color .3s}
@@ -180,6 +187,9 @@ footer b{color:var(--text2);font-weight:500}
 <span class="pbadge hl"><img class="plogo" src="Hyperliquid.jpg" alt="H">Hyperliquid</span>
 <span class="pbadge li"><img class="plogo" src="Lighter.jpg" alt="L">Lighter</span>
 <span class="pbadge tx"><img class="plogo" src="Tradexyz.jpg" alt="T">Trade.xyz</span>
+<span class="pbadge as"><img class="plogo" src="Aster.jpg" alt="A">Aster</span>
+<span class="pbadge ex"><img class="plogo" src="Extended.jpg" alt="E">Extended</span>
+<span class="pbadge gr"><img class="plogo" src="GRVT.jpg" alt="G">GRVT</span>
 </div>
 </div>
 <div class="topbar-right">
@@ -205,6 +215,9 @@ footer b{color:var(--text2);font-weight:500}
 <div class="hero-kpi"><div class="kpi-top"><img class="plogo plogo-hero" src="Hyperliquid.jpg" alt="H"></div><div class="num hl" id="heroHL">—</div><div class="lbl">Hyperliquid</div></div>
 <div class="hero-kpi"><div class="kpi-top"><img class="plogo plogo-hero" src="Lighter.jpg" alt="L"></div><div class="num li" id="heroL">—</div><div class="lbl">Lighter</div></div>
 <div class="hero-kpi"><div class="kpi-top"><img class="plogo plogo-hero" src="Tradexyz.jpg" alt="T"></div><div class="num tx" id="heroTX">—</div><div class="lbl">Trade.xyz</div></div>
+<div class="hero-kpi"><div class="kpi-top"><img class="plogo plogo-hero" src="Aster.jpg" alt="A"></div><div class="num as" id="heroAS">—</div><div class="lbl">Aster</div></div>
+<div class="hero-kpi"><div class="kpi-top"><img class="plogo plogo-hero" src="Extended.jpg" alt="E"></div><div class="num ex" id="heroEX">—</div><div class="lbl">Extended</div></div>
+<div class="hero-kpi"><div class="kpi-top"><img class="plogo plogo-hero" src="GRVT.jpg" alt="G"></div><div class="num gr" id="heroGR">—</div><div class="lbl">GRVT</div></div>
 </div></div>
 
 <!-- Scatter -->
@@ -269,6 +282,10 @@ footer b{color:var(--text2);font-weight:500}
 <button class="chip" data-cat="crypto">Crypto</button>
 <button class="chip" data-cat="rwa">RWA</button>
 <button class="chip" data-cat="tradexyz">Trade.xyz</button>
+<span class="sep"></span>
+<button class="chip opt-platform" data-opt="aster" id="optAster" title="Show Aster data">🅐 Aster</button>
+<button class="chip opt-platform" data-opt="extended" id="optExtended" title="Show Extended data">🅔 Extended</button>
+<button class="chip opt-platform" data-opt="grvt" id="optGrvt" title="Show GRVT data">🅖 GRVT</button>
 </div>
 <div class="table-wrap"><table><thead><tr>
 <th data-sort="ticker">Token</th>
@@ -277,6 +294,9 @@ footer b{color:var(--text2);font-weight:500}
 <th data-sort="hlExec"><span class="th-inner"><img class="plogo" src="Hyperliquid.jpg" alt="">Hyperliquid</span></th>
 <th data-sort="lExec"><span class="th-inner"><img class="plogo" src="Lighter.jpg" alt="">Lighter</span></th>
 <th data-sort="txExec"><span class="th-inner"><img class="plogo" src="Tradexyz.jpg" alt="">Trade.xyz</span></th>
+<th data-sort="asExec"><span class="th-inner"><img class="plogo" src="Aster.jpg" alt="">Aster</span></th>
+<th data-sort="exExec"><span class="th-inner"><img class="plogo" src="Extended.jpg" alt="">Extended</span></th>
+<th data-sort="grExec"><span class="th-inner"><img class="plogo" src="GRVT.jpg" alt="">GRVT</span></th>
 <th data-sort="best">Best</th>
 </tr></thead>
 <tbody id="tableBody"></tbody></table></div>
@@ -284,7 +304,7 @@ footer b{color:var(--text2);font-weight:500}
 
 </div>
 
-<footer>Execution cost = <b>half-spread + taker fee</b> · <b>Variational</b>: 0% · <b>Hyperliquid</b>: 0.045% base · <b>Lighter</b>: 0% (|mark−index| proxy) · <b>Trade.xyz</b>: HIP-3 on HL (same infra)</footer>
+<footer>Execution cost = <b>half-spread + taker fee</b> · <b>Variational</b>: 0% · <b>Hyperliquid</b>: 0.045% base · <b>Lighter</b>: 0% (|mark−index| proxy) · <b>Trade.xyz</b>: HIP-3 on HL (same infra) · <b>Extended</b>: 0.025% · <b>Aster</b>: 0.05% est. · <b>GRVT</b>: coming soon</footer>
 
 <script>
 // ===== THEME LOGIC =====
@@ -335,8 +355,11 @@ function chartColors(){
     hl:'#2DD4A7',hlBorder:'rgba(45,212,167,.45)',hlAlpha:'rgba(45,212,167,.75)',hlBar:'rgba(45,212,167,.8)',hlStroke:'#1DB892',
     li:'#F0945C',liBorder:'rgba(240,148,92,.45)',liAlpha:'rgba(240,148,92,.75)',liBar:'rgba(240,148,92,.8)',liStroke:'#E07030',
     tx:'#F5C842',txBorder:'rgba(245,200,66,.45)',txAlpha:'rgba(245,200,66,.75)',txBar:'rgba(245,200,66,.8)',txStroke:'#D4A820',
-    pie:['rgba(167,139,250,.85)','rgba(45,212,167,.85)','rgba(240,148,92,.85)','rgba(245,200,66,.85)'],
-    pieBorder:['#A78BFA','#2DD4A7','#F0945C','#F5C842']
+    asBar:'rgba(56,189,248,.8)',asStroke:'#0EA5E9',asAlpha:'rgba(56,189,248,.75)',asBorder:'rgba(56,189,248,.45)',
+    exBar:'rgba(244,114,182,.8)',exStroke:'#EC4899',exAlpha:'rgba(244,114,182,.75)',exBorder:'rgba(244,114,182,.45)',
+    grBar:'rgba(190,242,100,.8)',grStroke:'#84CC16',grAlpha:'rgba(190,242,100,.75)',grBorder:'rgba(190,242,100,.45)',
+    pie:['rgba(167,139,250,.85)','rgba(45,212,167,.85)','rgba(240,148,92,.85)','rgba(245,200,66,.85)','rgba(56,189,248,.85)','rgba(244,114,182,.85)','rgba(190,242,100,.85)'],
+    pieBorder:['#A78BFA','#2DD4A7','#F0945C','#F5C842','#38BDF8','#F472B6','#BEF264']
   };
 }
 
@@ -344,8 +367,75 @@ function chartColors(){
 var tradeXYZTickers = new Set(["XYZ100","TSLA","NVDA","GOLD","HOOD","INTC","PLTR","COIN","META","AAPL","MSFT","ORCL","GOOGL","AMZN","AMD","MU","SNDK","MSTR","CRCL","NFLX","COST","LLY","SKHX","TSM","JPY","EUR","SILVER","RIVN","BABA","CL","COPPER","NATGAS","URANIUM","ALUMINIUM","SMSN","PLATINUM","USAR","CRWV","URNM","PALLADIUM","DXY","GME","KR200","SOFTBANK","JP225","HYUNDAI","KIOXIA","EWY","EWJ","BRENTOIL","VIX","HIMS","SP500","DKNG","LITE","CORN","XLE","WHEAT","TTF","BX","PURRDAT","MRVL","RKLB","BIRD","VOL","DRAM","CBRS","EWZ","KRW","ZM","EBAY","H100","NIFTY","ARM","EWT","GBP","SPCX","IBOV","ASML","MINIMAX","BB","QNT","DELL","IBM","AVGO","NOW","NBIS","WDC","NOK","SMH","BE","ZHIPU","QCOM","STRC","BOT","AMAT","IBIDEN","GIGADEV","SHAZ","SKHY","KSTR"]);
 
 var allData=[],sortField='best',sortAsc=false,currentFilter='all',currentCat='all',pieCategory='all',scatterCategory='all',scatterSize='10k',showAvgs=true;
+var showAster=false,showExtended=false,showGrvt=false;
 
-// Watermark plugin
+// Avg lines plugin - draws vertical dashed lines for averages
+var avgLinesPlugin = {
+  id: 'avgLines',
+  afterDraw: function(chart) {
+    if (!chart._avgLines || !showAvgs) return;
+    var ctx = chart.ctx;
+    var xScale = chart.scales['x'];
+    var yScale = chart.scales['y'];
+    var topY = yScale.top;
+    var botY = yScale.bottom;
+    // Draw avg lines
+    chart._avgLines.forEach(function(al) {
+      if (al.hidden) return;
+      var px = xScale.getPixelForValue(al.value);
+      if (px < xScale.left - 10 || px > xScale.right + 10) return;
+      ctx.save();
+      ctx.strokeStyle = al.color;
+      ctx.lineWidth = 8;
+      ctx.globalAlpha = 0.15;
+      ctx.setLineDash([]);
+      ctx.beginPath(); ctx.moveTo(px, topY); ctx.lineTo(px, botY); ctx.stroke();
+      ctx.lineWidth = 2.5;
+      ctx.globalAlpha = 0.9;
+      ctx.beginPath(); ctx.moveTo(px, topY); ctx.lineTo(px, botY); ctx.stroke();
+      ctx.globalAlpha = 1;
+      var cy = (topY + botY) / 2;
+      ctx.fillStyle = al.color;
+      ctx.beginPath();
+      ctx.moveTo(px, cy - 6); ctx.lineTo(px + 6, cy); ctx.lineTo(px, cy + 6); ctx.lineTo(px - 6, cy);
+      ctx.closePath(); ctx.fill();
+      ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.restore();
+    });
+    // Hover tooltip
+    if (chart._lastHit) {
+      var h = chart._lastHit;
+      var px = xScale.getPixelForValue(h.value);
+      ctx.save();
+      ctx.strokeStyle = h.color;
+      ctx.globalAlpha = 0.25;
+      ctx.lineWidth = 10;
+      ctx.setLineDash([5,4]);
+      ctx.beginPath(); ctx.moveTo(px, topY); ctx.lineTo(px, botY); ctx.stroke();
+      ctx.globalAlpha = 1;
+      ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(px, topY); ctx.lineTo(px, botY); ctx.stroke();
+      ctx.setLineDash([]);
+      var txt = h.name + ' ' + (h.value*1).toFixed(3)+'%';
+      ctx.font = '600 12px "DM Sans", sans-serif';
+      var tw = ctx.measureText(txt).width;
+      var lx = px + 10;
+      if (lx + tw + 16 > chart.width) lx = px - tw - 26;
+      ctx.fillStyle = 'rgba(0,0,0,.8)';
+      ctx.beginPath(); var r=4;
+      ctx.moveTo(lx+r, topY+4); ctx.lineTo(lx+tw+16-r, topY+4);
+      ctx.arcTo(lx+tw+16, topY+4, lx+tw+16, topY+4+r, r);
+      ctx.lineTo(lx+tw+16, topY+24); ctx.arcTo(lx+tw+16, topY+28, lx+tw+16-r, topY+28, r);
+      ctx.lineTo(lx+r, topY+28); ctx.arcTo(lx, topY+28, lx, topY+24, r);
+      ctx.lineTo(lx, topY+4+r); ctx.arcTo(lx, topY+4, lx+r, topY+4, r);
+      ctx.closePath(); ctx.fill();
+      ctx.fillStyle = h.color;
+      ctx.fillText(txt, lx+8, topY+22);
+      ctx.restore();
+    }
+  }
+};
+Chart.register(avgLinesPlugin);
 var watermarkPlugin = {
   id: 'watermark',
   beforeDraw: function(chart) {
@@ -367,6 +457,24 @@ async function loadData(){
   try{var r=await fetch('data.json?v=3');allData=await r.json();
     allData.forEach(function(d){
       d.on_tradexyz=tradeXYZTickers.has(d.ticker.toUpperCase());
+      if(d.on_aster===undefined)d.on_aster=false;
+      if(d.on_extended===undefined)d.on_extended=false;
+      if(d.on_grvt===undefined)d.on_grvt=false;
+      if(d.as_exec===undefined)d.as_exec=null;
+      if(d.ex_exec===undefined)d.ex_exec=null;
+      if(d.gr_exec===undefined)d.gr_exec=null;
+      if(d.as_exec_10k===undefined)d.as_exec_10k=null;
+      if(d.as_exec_100k===undefined)d.as_exec_100k=null;
+      if(d.as_exec_1M===undefined)d.as_exec_1M=null;
+      if(d.ex_exec_10k===undefined)d.ex_exec_10k=null;
+      if(d.ex_exec_100k===undefined)d.ex_exec_100k=null;
+      if(d.ex_exec_1M===undefined)d.ex_exec_1M=null;
+      if(d.gr_exec_10k===undefined)d.gr_exec_10k=null;
+      if(d.gr_exec_100k===undefined)d.gr_exec_100k=null;
+      if(d.gr_exec_1M===undefined)d.gr_exec_1M=null;
+      if(d.has_as_book===undefined)d.has_as_book=false;
+      if(d.has_ex_book===undefined)d.has_ex_book=false;
+      if(d.has_gr_book===undefined)d.has_gr_book=false;
     });
     updateHero();renderTable();renderCharts();
   }catch(e){console.error(e);}
@@ -377,6 +485,9 @@ function updateHero(){
   document.getElementById('heroHL').textContent=allData.filter(function(r){return r.best==='Hyperliquid'}).length;
   document.getElementById('heroL').textContent=allData.filter(function(r){return r.best==='Lighter'}).length;
   document.getElementById('heroTX').textContent=allData.filter(function(r){return r.on_tradexyz}).length;
+  document.getElementById('heroAS').textContent=allData.filter(function(r){return r.on_aster}).length;
+  document.getElementById('heroEX').textContent=allData.filter(function(r){return r.on_extended}).length;
+  document.getElementById('heroGR').textContent=allData.filter(function(r){return r.on_grvt}).length;
 }
 
 function getData(){
@@ -401,6 +512,9 @@ function getData(){
     else if(sortField==='hlExec'){va=a.hl_exec||999;vb=b.hl_exec||999}
     else if(sortField==='lExec'){va=a.l_exec||999;vb=b.l_exec||999}
     else if(sortField==='txExec'){va=a.tx_exec||999;vb=b.tx_exec||999}
+    else if(sortField==='asExec'){va=a.as_exec||999;vb=b.as_exec||999}
+    else if(sortField==='exExec'){va=a.ex_exec||999;vb=b.ex_exec||999}
+    else if(sortField==='grExec'){va=a.gr_exec||999;vb=b.gr_exec||999}
     else if(sortField==='best'){va=a.best;vb=b.best}
     else{va=a.ticker;vb=b.ticker}
     if(typeof va==='string')return sortAsc?va.localeCompare(vb):vb.localeCompare(va);
@@ -416,59 +530,92 @@ function renderTable(){
     if(b==='Hyperliquid'){bt='btag hl';bimg='<img class="plogo" src="Hyperliquid.jpg" alt="H">'}
     if(b==='Lighter'){bt='btag li';bimg='<img class="plogo" src="Lighter.jpg" alt="L">'}
     if(b==='Trade.xyz'){bt='btag tx';bimg='<img class="plogo" src="Tradexyz.jpg" alt="T">'}
+    if(b==='Aster'){bt='btag as';bimg='<img class="plogo" src="Aster.jpg" alt="A"> '}
+    if(b==='Extended'){bt='btag ex';bimg='<img class="plogo" src="Extended.jpg" alt="E"> '}
+    if(b==='GRVT'){bt='btag gr';bimg='<img class="plogo" src="GRVT.jpg" alt="G"> '}
     var vD=r.on_v?r.v_exec.toFixed(4)+'%':'—';
     var hlD=r.on_hl?(r.has_hl_book?r.hl_exec.toFixed(4)+'%':'~'+r.hl_exec.toFixed(4)+'%'):'—';
     var lD=r.on_l?r.l_exec.toFixed(4)+'%':'—';
     var txD=r.on_tradexyz?(r.has_tx_book?r.tx_exec.toFixed(4)+'%':'~'+r.tx_exec.toFixed(4)+'%'):'—';
+    var asD=r.on_aster?(r.has_as_book?r.as_exec.toFixed(4)+'%':'~'+r.as_exec.toFixed(4)+'%'):'—';
+    var exD=r.on_extended?(r.has_ex_book?r.ex_exec.toFixed(4)+'%':'~'+r.ex_exec.toFixed(4)+'%'):'—';
+    var grD=r.on_grvt?(r.has_gr_book?r.gr_exec.toFixed(4)+'%':'~'+r.gr_exec.toFixed(4)+'%'):'—';
     var cat=r.on_hl?'₿':'🏛';if(r.on_tradexyz)cat='💱';
     var pf=r.platforms;if(r.on_tradexyz)pf+='+TX';
-    rows+='<tr><td class="token-cell">'+r.ticker+'<span class="cat">'+cat+'</span></td><td>'+pf+'</td><td class="c-va">'+vD+'</td><td class="c-hl">'+hlD+'</td><td class="c-li">'+lD+'</td><td class="c-tx">'+txD+'</td><td><span class="'+bt+'">'+bimg+b+'</span></td></tr>';
+    rows+='<tr><td class="token-cell">'+r.ticker+'<span class="cat">'+cat+'</span></td><td>'+pf+'</td><td class="c-va">'+vD+'</td><td class="c-hl">'+hlD+'</td><td class="c-li">'+lD+'</td><td class="c-tx">'+txD+'</td><td class="c-as">'+asD+'</td><td class="c-ex">'+exD+'</td><td class="c-gr">'+grD+'</td><td><span class="'+bt+'">'+bimg+b+'</span></td></tr>';
   });
   document.getElementById('tableBody').innerHTML=rows;
 }
 
 function renderCharts(){
   var c=chartColors();
-  var ptsV=[],ptsH=[],ptsL=[],ptsTX=[];
+  var ptsV=[],ptsH=[],ptsL=[],ptsTX=[],ptsAS=[],ptsEX=[],ptsGR=[];
   var fd=allData;
   if(scatterCategory==='crypto')fd=allData.filter(function(r){return r.on_hl && !r.on_tradexyz});
   if(scatterCategory==='rwa')fd=allData.filter(function(r){return !r.on_hl || r.on_tradexyz});
   fd.forEach(function(r){
     var vf='v_exec_'+scatterSize, hf='hl_exec_'+scatterSize, lf='l_exec_'+scatterSize, tf='tx_exec_'+scatterSize;
+    var af='as_exec_'+scatterSize, ef='ex_exec_'+scatterSize, gf='gr_exec_'+scatterSize;
     if(r.on_v&&r[vf]>0)ptsV.push({x:r[vf],y:Math.random(),t:r.ticker});
     if(r.on_hl&&r.has_hl_book&&r[hf]>0)ptsH.push({x:r[hf],y:Math.random(),t:r.ticker});
     if(r.on_l&&r[lf]>0)ptsL.push({x:r[lf],y:Math.random(),t:r.ticker});
     if(r.on_tradexyz&&r.has_tx_book&&r[tf]>0)ptsTX.push({x:r[tf],y:Math.random(),t:r.ticker});
+    if(r.on_aster&&r.has_as_book&&r[af]>0)ptsAS.push({x:r[af],y:Math.random(),t:r.ticker});
+    if(r.on_extended&&r.has_ex_book&&r[ef]>0)ptsEX.push({x:r[ef],y:Math.random(),t:r.ticker});
+    if(r.on_grvt&&r.has_gr_book&&r[gf]>0)ptsGR.push({x:r[gf],y:Math.random(),t:r.ticker});
   });
   var c1=document.getElementById('scatterChart').getContext('2d');
   if(window._s)window._s.destroy();
   var aV=0,sV=0,cV=0,aH=0,sH=0,cH=0,aL=0,sL=0,cL=0,aT=0,sT=0,cT=0;
+  var aA=0,sA=0,cA=0,aE=0,sE=0,cE=0,aG=0,sG=0,cG=0;
   var vf='v_exec_'+scatterSize, hf='hl_exec_'+scatterSize, lf='l_exec_'+scatterSize, tf='tx_exec_'+scatterSize;
+  var af='as_exec_'+scatterSize, ef='ex_exec_'+scatterSize, gf='gr_exec_'+scatterSize;
   fd.forEach(function(r){
     if(r.on_v&&r[vf]>0){sV+=r[vf];cV++}
     if(r.on_hl&&r.has_hl_book&&r[hf]>0){sH+=r[hf];cH++}
     if(r.on_l&&r[lf]>0){sL+=r[lf];cL++}
     if(r.on_tradexyz&&r.has_tx_book&&r[tf]>0){sT+=r[tf];cT++}
+    if(r.on_aster&&r.has_as_book&&r[af]>0&&r[af]<5){sA+=r[af];cA++}
+    if(r.on_extended&&r.has_ex_book&&r[ef]>0&&r[ef]<5){sE+=r[ef];cE++}
+    if(r.on_grvt&&r.has_gr_book&&r[gf]>0&&r[gf]<5){sG+=r[gf];cG++}
   });
   if(cV>0)aV=sV/cV;if(cH>0)aH=sH/cH;if(cL>0)aL=sL/cL;if(cT>0)aT=sT/cT;
+  if(cA>0)aA=sA/cA;if(cE>0)aE=sE/cE;if(cG>0)aG=sG/cG;
   var ds=[
     {label:'Variational ('+ptsV.length+')',data:ptsV,backgroundColor:c.vaAlpha,borderColor:c.vaStroke,pointBorderColor:c.vaStroke,pointBorderWidth:1,pointRadius:4,pointHoverRadius:9,pointHoverBorderWidth:3,pointHoverBorderColor:c.va},
     {label:'Hyperliquid ('+ptsH.length+')',data:ptsH,backgroundColor:c.hlAlpha,borderColor:c.hlStroke,pointBorderColor:c.hlStroke,pointBorderWidth:1,pointRadius:4,pointHoverRadius:9,pointHoverBorderWidth:3,pointHoverBorderColor:c.hl},
     {label:'Lighter ('+ptsL.length+')',data:ptsL,backgroundColor:c.liAlpha,borderColor:c.liStroke,pointBorderColor:c.liStroke,pointBorderWidth:1,pointRadius:4,pointHoverRadius:9,pointHoverBorderWidth:3,pointHoverBorderColor:c.li},
     {label:'Trade.xyz ('+ptsTX.length+')',data:ptsTX,backgroundColor:c.txAlpha,borderColor:c.txStroke,pointBorderColor:c.txStroke,pointBorderWidth:1,pointRadius:4,pointHoverRadius:9,pointHoverBorderWidth:3,pointHoverBorderColor:c.tx}
   ];
-  if(aV>0)ds.push({label:'V avg '+aV.toFixed(3)+'%',data:[{x:aV,y:0},{x:aV,y:0.5},{x:aV,y:1}],showLine:true,borderColor:c.va,borderWidth:2,borderDash:[5,3],pointRadius:[0,5,0],pointBackgroundColor:[c.va,c.va,c.va],pointBorderColor:c.va,pointBorderWidth:1,pointHitRadius:[0,22,0],pointHoverRadius:[0,8,0],pointHoverBorderWidth:3,order:1,hidden:!showAvgs,showInLegend:false,avgVal:aV});
-  if(aH>0)ds.push({label:'HL avg '+aH.toFixed(3)+'%',data:[{x:aH,y:0},{x:aH,y:0.5},{x:aH,y:1}],showLine:true,borderColor:c.hl,borderWidth:2,borderDash:[5,3],pointRadius:[0,5,0],pointBackgroundColor:[c.hl,c.hl,c.hl],pointBorderColor:c.hl,pointBorderWidth:1,pointHitRadius:[0,22,0],pointHoverRadius:[0,8,0],pointHoverBorderWidth:3,order:1,hidden:!showAvgs,showInLegend:false,avgVal:aH});
-  if(aL>0)ds.push({label:'L avg '+aL.toFixed(3)+'%',data:[{x:aL,y:0},{x:aL,y:0.5},{x:aL,y:1}],showLine:true,borderColor:c.li,borderWidth:2,borderDash:[5,3],pointRadius:[0,5,0],pointBackgroundColor:[c.li,c.li,c.li],pointBorderColor:c.li,pointBorderWidth:1,pointHitRadius:[0,22,0],pointHoverRadius:[0,8,0],pointHoverBorderWidth:3,order:1,hidden:!showAvgs,showInLegend:false,avgVal:aL});
-  if(aT>0)ds.push({label:'TX avg '+aT.toFixed(3)+'%',data:[{x:aT,y:0},{x:aT,y:0.5},{x:aT,y:1}],showLine:true,borderColor:c.tx,borderWidth:2,borderDash:[5,3],pointRadius:[0,5,0],pointBackgroundColor:[c.tx,c.tx,c.tx],pointBorderColor:c.tx,pointBorderWidth:1,pointHitRadius:[0,22,0],pointHoverRadius:[0,8,0],pointHoverBorderWidth:3,order:1,hidden:!showAvgs,showInLegend:false,avgVal:aT});
+  ds.push({label:'Aster ('+ptsAS.length+')',data:ptsAS,backgroundColor:c.asAlpha,borderColor:c.asStroke,pointBorderColor:c.asStroke,pointBorderWidth:1,pointRadius:4,pointHoverRadius:9,pointHoverBorderWidth:3,pointHoverBorderColor:c.asStroke,hidden:!showAster});
+  ds.push({label:'Extended ('+ptsEX.length+')',data:ptsEX,backgroundColor:c.exAlpha,borderColor:c.exStroke,pointBorderColor:c.exStroke,pointBorderWidth:1,pointRadius:4,pointHoverRadius:9,pointHoverBorderWidth:3,pointHoverBorderColor:c.exStroke,hidden:!showExtended});
+  ds.push({label:'GRVT ('+ptsGR.length+')',data:ptsGR,backgroundColor:c.grAlpha,borderColor:c.grStroke,pointBorderColor:c.grStroke,pointBorderWidth:1,pointRadius:4,pointHoverRadius:9,pointHoverBorderWidth:3,pointHoverBorderColor:c.grStroke,hidden:!showGrvt});
+  // Build avg lines array for the plugin
+  var avgLines=[];
+  if(aV>0)avgLines.push({value:aV,color:c.va,hidden:false,name:'Variational'});
+  if(aH>0)avgLines.push({value:aH,color:c.hl,hidden:false,name:'Hyperliquid'});
+  if(aL>0)avgLines.push({value:aL,color:c.li,hidden:false,name:'Lighter'});
+  if(aT>0)avgLines.push({value:aT,color:c.tx,hidden:false,name:'Trade.xyz'});
+  if(aA>0)avgLines.push({value:aA,color:c.asStroke,hidden:!showAster,name:'Aster'});
+  if(aE>0)avgLines.push({value:aE,color:c.exStroke,hidden:!showExtended,name:'Extended'});
+  if(aG>0)avgLines.push({value:aG,color:c.grStroke,hidden:!showGrvt,name:'GRVT'});
+  // Compute dynamic xMax from visible data + avg lines (capped)
+  var allX=[];
+  ds.forEach(function(d){if(d.data) d.data.forEach(function(p){if(p.x>0&&p.x<5)allX.push(p.x)})});
+  avgLines.forEach(function(al){if(!al.hidden && al.value>0 && al.value<5)allX.push(al.value)});
+  allX.sort(function(a,b){return a-b});
+  var p95=allX[Math.floor(allX.length*0.95)]||0.5;
+  var xMax=Math.min(2, Math.max(0.5, p95*1.3));
   window._s=new Chart(c1,{type:'scatter',data:{datasets:ds},options:{responsive:true,maintainAspectRatio:false,
-    plugins:{tooltip:{callbacks:{label:function(dd){if(dd.dataset.avgVal!=null)return dd.dataset.label;return dd.raw.t+': '+dd.dataset.label.split(' ')[0]+' = '+dd.raw.x.toFixed(4)+'%'}}},legend:{labels:{color:c.legend,usePointStyle:true,pointStyle:'circle',padding:18,font:{size:10},filter:function(item){return item.text.indexOf('avg')===-1}}}},
-    scales:{x:{title:{text:'Execution cost %',color:c.legend,display:true,font:{size:10}},ticks:{color:c.tick,callback:function(v){return v.toFixed(2)+'%'}},grid:{color:c.grid},max:1},y:{display:false}}}});
-  // Attach avg line hover via mousemove on canvas
+    plugins:{tooltip:{callbacks:{label:function(dd){return dd.raw.t+': '+dd.dataset.label.split(' ')[0]+' = '+dd.raw.x.toFixed(4)+'%'}}},legend:{labels:{color:c.legend,usePointStyle:true,pointStyle:'circle',padding:18,font:{size:10}},onClick:function(e,item,legend){var l=item.text.split(' ')[0];if(l==='Aster'){togglePlatform('aster');return}if(l==='Extended'){togglePlatform('extended');return}if(l==='GRVT'){togglePlatform('grvt');return}Chart.defaults.plugins.legend.onClick.call(legend,e,item,legend);}}},
+    scales:{x:{title:{text:'Execution cost %',color:c.legend,display:true,font:{size:10}},ticks:{color:c.tick,callback:function(v){return v.toFixed(2)+'%'}},grid:{color:c.grid},max:xMax},y:{display:false}}},
+    plugins:[avgLinesPlugin]});
+  window._s._avgLines = avgLines;
+  // Hover highlight for avg lines
   (function(chart){
     var canvas = chart.canvas;
     canvas.onmousemove = function(e) {
-      if (!showAvgs) return;
+      if (!showAvgs || !chart._avgLines) return;
       var rect = canvas.getBoundingClientRect();
       var mx = e.clientX - rect.left;
       var xScale = chart.scales['x'];
@@ -476,53 +623,20 @@ function renderCharts(){
       var mouseVal = xScale.getValueForPixel(mx);
       var hit = null;
       var range = (xScale.max - xScale.min) * 0.02;
-      for (var i = 0; i < chart.data.datasets.length; i++) {
-        var d = chart.data.datasets[i];
-        if (d.avgVal == null || d.hidden) continue;
-        if (Math.abs(mouseVal - d.data[0].x) < range) {
-          hit = { x: d.data[0].x, color: d.borderColor, label: d.label };
+      for (var i = 0; i < chart._avgLines.length; i++) {
+        var al = chart._avgLines[i];
+        if (al.hidden) continue;
+        if (Math.abs(mouseVal - al.value) < range) {
+          hit = { value: al.value, color: al.color, name: al.name };
           break;
         }
       }
       if (!chart._lastHit && !hit) return;
-      if (chart._lastHit && hit && chart._lastHit.label === hit.label) return;
+      if (chart._lastHit && hit && chart._lastHit.value === hit.value) return;
       chart._lastHit = hit;
       chart.draw();
     };
     canvas.onmouseleave = function() { if(chart._lastHit){ chart._lastHit=null; chart.draw(); } };
-    // Override draw to show avg hover
-    var origDraw = chart.draw;
-    chart.draw = function() {
-      origDraw.call(chart);
-      if (!chart._lastHit) return;
-      var h = chart._lastHit;
-      var xScale = chart.scales['x'];
-      var px = xScale.getPixelForValue(h.x);
-      var ctx = chart.ctx;
-      var yTop = chart.scales['y'].top;
-      var yBot = chart.scales['y'].bottom;
-      ctx.save();
-      ctx.strokeStyle = h.color;
-      ctx.globalAlpha = 0.2;
-      ctx.lineWidth = 8;
-      ctx.setLineDash([5,4]);
-      ctx.beginPath(); ctx.moveTo(px, yTop); ctx.lineTo(px, yBot); ctx.stroke();
-      ctx.globalAlpha = 1;
-      ctx.lineWidth = 3;
-      ctx.beginPath(); ctx.moveTo(px, yTop); ctx.lineTo(px, yBot); ctx.stroke();
-      ctx.setLineDash([]);
-      var txt = h.label;
-      ctx.font = '600 11px "DM Sans", sans-serif';
-      var tw = ctx.measureText(txt).width;
-      var lx = px + 8;
-      if (lx + tw + 16 > chart.width) lx = px - tw - 24;
-      var ly = yTop + 16;
-      ctx.fillStyle = 'rgba(0,0,0,.75)';
-      ctx.fillRect(lx, ly-11, tw+16, 20);
-      ctx.fillStyle = h.color;
-      ctx.fillText(txt, lx+8, ly+4);
-      ctx.restore();
-    };
   })(window._s);
 
   // PIE
@@ -533,19 +647,29 @@ function renderCharts(){
   var hlB=pd.filter(function(r){return r.best==='Hyperliquid' && !r.on_tradexyz}).length;
   var lB=pd.filter(function(r){return r.best==='Lighter'}).length;
   var txB=pd.filter(function(r){return r.on_tradexyz}).length;
+  var asB=pd.filter(function(r){return r.on_aster}).length;
+  var exB=pd.filter(function(r){return r.on_extended}).length;
+  var grB=pd.filter(function(r){return r.on_grvt}).length;
+  var pLabels=['Variational ('+vB+')','Hyperliquid ('+hlB+')','Lighter ('+lB+')','Trade.xyz ('+txB+')','Aster ('+asB+')','Extended ('+exB+')','GRVT ('+grB+')'];
+  var pData=[vB,hlB,lB,txB,asB,exB,grB];
+  var pBg=c.pie.slice(0,7);var pBd=c.pieBorder.slice(0,7);
   var c2=document.getElementById('pieChart').getContext('2d');
   if(window._p)window._p.destroy();
-  window._p=new Chart(c2,{type:'doughnut',data:{labels:['Variational ('+vB+')','Hyperliquid ('+hlB+')','Lighter ('+lB+')','Trade.xyz ('+txB+')'],datasets:[{data:[vB,hlB,lB,txB],backgroundColor:c.pie,borderColor:c.pieBorder,borderWidth:2,hoverBorderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:c.legend,usePointStyle:true,pointStyle:'circle',padding:18,font:{size:10}}}},cutout:'60%'}});
+  window._p=new Chart(c2,{type:'doughnut',data:{labels:pLabels,datasets:[{data:pData,backgroundColor:pBg,borderColor:pBd,borderWidth:2,hoverBorderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:c.legend,usePointStyle:true,pointStyle:'circle',padding:18,font:{size:10}}}},cutout:'60%'}});
 
   // BAR
   var barD=allData.filter(function(r){return r.on_v&&r.on_hl}).sort(function(a,b){return b.v_vol-a.v_vol}).slice(0,20);
   var c3=document.getElementById('barChart').getContext('2d');
   if(window._b)window._b.destroy();
-  window._b=new Chart(c3,{type:'bar',data:{labels:barD.map(function(r){return r.ticker}),datasets:[
+  var barDs=[
     {label:'Variational',data:barD.map(function(r){return r.on_v?r.v_exec:null}),backgroundColor:c.vaBar,borderColor:c.va,borderWidth:1,borderRadius:3},
     {label:'Hyperliquid',data:barD.map(function(r){return r.on_hl?r.hl_exec:null}),backgroundColor:c.hlBar,borderColor:c.hl,borderWidth:1,borderRadius:3},
-    {label:'Lighter',data:barD.map(function(r){return r.on_l?r.l_exec:null}),backgroundColor:c.liBar,borderColor:c.li,borderWidth:1,borderRadius:3}
-  ]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{labels:{color:c.legend,usePointStyle:true,pointStyle:'circle',padding:16,font:{size:10}}}},scales:{x:{ticks:{color:c.tick,callback:function(v){return v+'%'}},grid:{color:c.grid}},y:{ticks:{color:c.legend,font:{size:10}},grid:{display:false}}}}});
+    {label:'Lighter',data:barD.map(function(r){return r.on_l?r.l_exec:null}),backgroundColor:c.liBar,borderColor:c.li,borderWidth:1,borderRadius:3},
+    {label:'Aster',data:barD.map(function(r){return r.on_aster?r.as_exec:null}),backgroundColor:c.asBar,borderColor:c.asStroke,borderWidth:1,borderRadius:3,hidden:!showAster},
+    {label:'Extended',data:barD.map(function(r){return r.on_extended?r.ex_exec:null}),backgroundColor:c.exBar,borderColor:c.exStroke,borderWidth:1,borderRadius:3,hidden:!showExtended},
+    {label:'GRVT',data:barD.map(function(r){return r.on_grvt?r.gr_exec:null}),backgroundColor:c.grBar,borderColor:c.grStroke,borderWidth:1,borderRadius:3,hidden:!showGrvt}
+  ];
+  window._b=new Chart(c3,{type:'bar',data:{labels:barD.map(function(r){return r.ticker}),datasets:barDs},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{labels:{color:c.legend,usePointStyle:true,pointStyle:'circle',padding:16,font:{size:10}}}},scales:{x:{ticks:{color:c.tick,callback:function(v){return v+'%'}},grid:{color:c.grid}},y:{ticks:{color:c.legend,font:{size:10}},grid:{display:false}}}}});
 }
 
 // ===== EVENT LISTENERS =====
@@ -557,6 +681,61 @@ document.querySelectorAll('.pill[data-scatcat]').forEach(function(b){b.addEventL
 document.querySelectorAll('.pill[data-scatsize]').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.pill[data-scatsize]').forEach(function(x){x.classList.remove('active')});this.classList.add('active');scatterSize=this.dataset.scatsize;renderCharts()})});
 document.querySelectorAll('th[data-sort]').forEach(function(th){th.addEventListener('click',function(){var f=th.dataset.sort;if(sortField===f)sortAsc=!sortAsc;else{sortField=f;sortAsc=false}renderTable()})});
 function toggleAvgs(){showAvgs=!showAvgs;var b=document.getElementById('avgToggle');if(showAvgs){b.classList.add('active')}else{b.classList.remove('active')};renderCharts()}
+
+function togglePlatform(name){
+  // Toggle variable
+  if(name==='aster') showAster=!showAster;
+  if(name==='extended') showExtended=!showExtended;
+  if(name==='grvt') showGrvt=!showGrvt;
+  syncOptUI();
+  // Update scatter chart datasets + avgLines in-place
+  if(window._s){
+    var ds=window._s.data.datasets;
+    var avgs=window._s._avgLines;
+    for(var i=0;i<ds.length;i++){
+      var l=ds[i].label.split(' ')[0];
+      if(l==='Aster') ds[i].hidden=!showAster;
+      if(l==='Extended') ds[i].hidden=!showExtended;
+      if(l==='GRVT') ds[i].hidden=!showGrvt;
+    }
+    if(avgs) for(var j=0;j<avgs.length;j++){
+      if(name==='aster' && avgs[j].color==='#0EA5E9') avgs[j].hidden=!showAster;
+      if(name==='extended' && avgs[j].color==='#EC4899') avgs[j].hidden=!showExtended;
+      if(name==='grvt' && avgs[j].color==='#84CC16') avgs[j].hidden=!showGrvt;
+    }
+    window._s.update('none');
+  }
+  // Update bar chart datasets in-place
+  if(window._b){
+    var bds=window._b.data.datasets;
+    for(var k=0;k<bds.length;k++){
+      if(bds[k].label==='Aster') bds[k].hidden=!showAster;
+      if(bds[k].label==='Extended') bds[k].hidden=!showExtended;
+      if(bds[k].label==='GRVT') bds[k].hidden=!showGrvt;
+    }
+    window._b.update('none');
+  }
+  // Pie needs full rebuild due to data change
+  if(window._p) renderCharts();
+}
+
+// Opt-in platform toggles (table toolbar)
+document.querySelectorAll('.chip.opt-platform').forEach(function(b){b.addEventListener('click',function(){
+  togglePlatform(this.dataset.opt);
+})});
+
+// Opt-in platform badges (topbar) - clickable
+document.querySelectorAll('.pbadge.as, .pbadge.ex, .pbadge.gr').forEach(function(b){b.style.cursor='pointer';b.addEventListener('click',function(){
+  if(this.classList.contains('as')) togglePlatform('aster');
+  if(this.classList.contains('ex')) togglePlatform('extended');
+  if(this.classList.contains('gr')) togglePlatform('grvt');
+})});
+
+function syncOptUI(){
+  document.querySelectorAll('.chip.opt-platform[data-opt="aster"], .pbadge.as').forEach(function(el){if(showAster)el.classList.add('active');else el.classList.remove('active')});
+  document.querySelectorAll('.chip.opt-platform[data-opt="extended"], .pbadge.ex').forEach(function(el){if(showExtended)el.classList.add('active');else el.classList.remove('active')});
+  document.querySelectorAll('.chip.opt-platform[data-opt="grvt"], .pbadge.gr').forEach(function(el){if(showGrvt)el.classList.add('active');else el.classList.remove('active')});
+}
 
 loadData();
 </script>
